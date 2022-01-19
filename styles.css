@@ -30,11 +30,15 @@ body {
 
 .navigation a {
     display: block;
-    color: #333;
     font-weight: bold;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
+}
+
+.navigation li:not(.active) a {
+    color: #333;
+    
 }
 
 .navigation li:not(.active) a:hover {
@@ -43,15 +47,11 @@ body {
   }
 
   .active {
-    background-color: #04AA6D;
-  }
-
-  .active a:hover {
     background-color: rgb(16, 212, 141);
     color: #fff;
   }
-  
- .content {
+
+  .content {
      margin: 8px auto;
      width: 600px;
  }
@@ -71,4 +71,10 @@ body {
 
  .content li {
      font-weight: 200;
+ }
+
+ .content a {
+     text-decoration: none;
+     color: rgb(72, 145, 177);
+     /* font-weight: bold; */
  }
