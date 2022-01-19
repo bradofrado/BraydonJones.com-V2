@@ -78,3 +78,7 @@ body {
      color: rgb(72, 145, 177);
      /* font-weight: bold; */
  }
+
+ .content em {
+     color: #000;
+ }
