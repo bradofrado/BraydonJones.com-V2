@@ -2,7 +2,6 @@ body {
     margin: 0px;
     background-color: #f7f7f7;
     font-family: 'Century';
-    font-size: 16px;
 }
 
 .header {
@@ -69,36 +68,4 @@ body {
 
  .content em {
      color: #000;
- }
-
- @media only screen and (min-width: 451px) and (max-width: 960px)
- {
-    body {
-        font-size: 14px;
-    }
-
-    .navigation-container {
-        width: 85%;
-    }
-
-    .content {
-        width: 80%;
-        /* margin: 0 50px; */
-    }
- }
-
- @media only screen and (max-width: 450px)
- {
-    body {
-        font-size: 12px;
-    }
-
-    .content {
-        width: 95%;
-        /* padding: 0 10px 0 20px; */
-    }
-
-    .navigation-container {
-        width: 100%;
-    }
  }
