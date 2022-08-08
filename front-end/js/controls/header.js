@@ -24,10 +24,17 @@ controls.header = (function() {
 
         const tabs = {};
 
+        const onATagClick = function(e) {
+            e.preventDefault();
+            const $self = $(this);
+            const href = $self.attr('href');
+            router.changeRoute(href);
+        }
+
         const createMenuTab = function(text, name, path) {
             const $tab = $(templateTab);
             const $a = $tab.find('a');
-            $a.attr("name", name).attr("href", `${path}`).html(text);
+            $a.attr("name", name).attr("href", `${path}`).html(text).on('click', onATagClick);
 
             $element.find('#navbarNav').find('ul').append($tab);
 

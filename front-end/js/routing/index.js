@@ -1,0 +1,1 @@
+router.view('home', null, pages.home, '/');
