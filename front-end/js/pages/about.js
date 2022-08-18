@@ -1,23 +1,37 @@
-pages.about = function() {
-    return `<div class="flex-split container padding-container">
-                <div class="image-container">
-                    <img src="/images/about-braydon.jpg">
+pages.about = (function() {
+    class InfoContainer extends Component {
+        constructor(props) {
+            super(props);
+        }
+
+        template = function() {
+            return `<div class="flex-split-info">
+                        <h3>{title}</h3>
+                        <p>{info}</p>
+                    </div>`
+        }
+    }
+
+    return function() {
+        const info = [
+            { title: "My Story", info: "I grew up in the small town of Mountain Green, Utah. Motivated by father's career in programming, I started coding when I was 14 and have since" },
+            //{ title: "Experience", info: "I have many hobbies"}
+        ];
+        return `<div class="flex-split padding-container">
+                    <div class="image-container">
+                        <img src="/images/about-braydon.jpg">
+                    </div>
+                    <div class="text-container">
+                        <h1>My Story</h1>
+                    </div>
                 </div>
-                <div>
-                    <h1>My Story</h1>
-                </div>
-            </div>
-            <div class="info-container container padding-container">
-                <div>
-                    <h2 class="info-title">I'm a student at Brigham Young University studying Computer Science.
-                        I have many hobbies and passions.
-                    </h2>
-                </div>
-                <div>
-                <h6>My story</h6>
-                    <p>I grew up in the small town of Mountain Green, Utah. Motivated by father's career in programming,
-                        I started coding when I was 14 and have since 
-                    </p>
-                </div>
-            </div>`
-}
+                <div class="info-container padding-container">
+                    <div>
+                        <h1 class="info-title">I'm a student at Brigham Young University studying Computer Science.
+                            I have many hobbies and passions.
+                        </h1>
+                    </div>
+                    ${info.map(x => new InfoContainer(x).render()).join('')}
+                </div>`
+    }
+})()
