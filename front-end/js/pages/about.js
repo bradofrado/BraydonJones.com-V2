@@ -31,7 +31,7 @@ pages.about = (function() {
                             I have many hobbies and passions.
                         </h1>
                     </div>
-                    ${info.map(x => new InfoContainer(x).render()).join('')}
-                </div>`
+                    ${info.map(x => `<@ InfoContainer title="{title}" info="{info}" @>`.object(x)).join('')}
+                </div>`.component({InfoContainer})
     }
 })()

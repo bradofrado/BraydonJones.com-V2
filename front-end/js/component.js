@@ -6,6 +6,6 @@ class Component {
     render = function() {
         const template = this.template();
 
-        return template.formatObject(this.props);
+        return template.object(this.props);
     }
 }
