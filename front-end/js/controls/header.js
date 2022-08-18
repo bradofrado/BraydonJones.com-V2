@@ -14,7 +14,7 @@ controls.header = (function() {
                             </div>
                         </div>
                     </nav>`;
-    const templateTab = `<li class="nav-item" id="nav-home">
+    const templateTab = `<li class="nav-item">
                             <a class="nav-link" name="home" href="#/">Home</a>
                         </li>`;               
     return function(options) {
@@ -85,13 +85,15 @@ controls.header = (function() {
             createMenuTab("Home", "home", "/");
             createMenuTab("About Me", "about", "/about")
             createMenuTab("Projects", "projects", "/projects");
+            createMenuTab("Experience", "experience", "/experience");
+            createMenuTab("Hobbies", "hobbies", "/hobbies");
 
-            $searchBox.on('focusout', _onSearchEnter);
-            $searchBox.on('keyup', function (e) {
-                if (e.key === 'Enter' || e.keyCode === 13) {
-                    $searchBox.blur();
-                }
-            });
+            // $searchBox.on('focusout', _onSearchEnter);
+            // $searchBox.on('keyup', function (e) {
+            //     if (e.key === 'Enter' || e.keyCode === 13) {
+            //         $searchBox.blur();
+            //     }
+            // });
 
             router.onRouteChange.subscribe(onTabClick);
         }

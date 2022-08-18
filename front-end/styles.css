@@ -1,14 +1,41 @@
+@font-face {
+    font-family: 'quicksandbook';
+    src: url('http://localhost:8080/fonts/quicksand_book-webfont.woff2') format('woff2'),
+         url('http://localhost:8080/fonts/quicksand_book-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'quicksandbold';
+    src: url('http://localhost:8080/fonts/quicksand_bold-webfont.woff2') format('woff2'),
+         url('http://localhost:8080/fonts/quicksand_bold-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+:root {
+    --color-primary: #404789;
+    --color-secondary: #57DCF2;
+    --white: #fafafa;
+    --black: #000;
+}
+
 html {
-    font-size: 12px;
+    font-size: 16px;
 }
 
 body {
-    background-color: #212121;
-    color: #fff;
+    background-color: var(--color-secondary);
+    color: var(--black);
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    font-family: Montserrat,Helvetica Neue,Helvetica,Arial,sans-serif;
+    /* font-family: Montserrat,Helvetica Neue,Helvetica,Arial,sans-serif; */
+    font-family: 'quicksandbook', sans-serif;
 }
 
 input {
@@ -20,8 +47,13 @@ input:focus-visible {
 }
 
 h1,h2,h3,h4,h5,h6 {
-    text-align: center;
+    /* text-align: center; */
+    font-family: 'quicksandbold', sans-serif;
     margin: 10px 0;
+}
+
+h6 {
+    font-weight: 600;
 }
 
 #app {
@@ -35,6 +67,10 @@ button {
     border: none;
     border-radius: 5px;
     background-color: #fff;
+}
+
+img {
+    width: 100%;
 }
 
 .button-primary {
@@ -58,6 +94,30 @@ button {
 
 .title-container {
     padding-top: 100px;
+}
+
+.flex-split {
+    display: flex;
+    flex-direction: column;
+}
+
+.padding-container {
+    padding: 30px;
+}
+
+.info-container {
+    /* background-color: #2D4180; */
+    background-color: var(--color-primary);
+    color: var(--white);
+}
+
+.info-container > div {
+    margin-bottom: 40px;
+}
+
+.info-container h1, .info-container h2, .info-container h3,
+.info-container h4, .info-container h5, .info-container h6 {
+    text-align: left;
 }
 
 .nav-item {
@@ -107,7 +167,7 @@ button.navbar-toggler {
 }
 
 .bg-primary-dark {
-    background-color: #2D4180;
+    background-color: var(--color-primary);
 }
 
 .image-button-container {
@@ -181,9 +241,9 @@ button.navbar-toggler {
     margin-right: 1rem;
 }
 
-.icon svg {
-    fill: #fff;
-}
+/* .icon svg {
+    fill: #00;
+} */
 
 .email-icon {
     width: 1.5rem;
