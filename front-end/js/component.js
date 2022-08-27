@@ -1,4 +1,6 @@
 class Component {
+    scrict = true;
+
     constructor(props) {
         this.props = props;
     }
@@ -6,6 +8,6 @@ class Component {
     render = function() {
         const template = this.template();
 
-        return template.object(this.props);
+        return template.object(this.props, this.scrict);
     }
 }

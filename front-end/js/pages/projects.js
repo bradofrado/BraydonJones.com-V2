@@ -1,3 +1,11 @@
 pages.projects = function() {
-    return `<h1>Projects</h1>`;
+    const projects = [
+        {image: "/images/about-braydon.jpg", label: "Hello", id: "0"},
+        {image: "/images/about-braydon.jpg", label: "Hello", id: "1"},
+        {image: "/images/about-braydon.jpg", label: "Hello", id: "2"},
+        {image: "/images/about-braydon.jpg", label: "Hello", id: "3"},
+    ];
+    return `<div class="container flex-grid">
+                ${projects.objects(`<ImageButton image="{image}" label="{label}" id="{id}">`)}
+            </div>`.component({ImageButton});
 }

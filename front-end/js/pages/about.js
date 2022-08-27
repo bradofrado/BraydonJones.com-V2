@@ -31,7 +31,7 @@ pages.about = (function() {
                             I have many hobbies and passions.
                         </h1>
                     </div>
-                    ${info.map(x => `<InfoContainer title="{title}" info="{info}">`.object(x)).join('')}
+                    ${info.objects(`<InfoContainer title="{title}" info="{info}">`)}
                 </div>`.component({InfoContainer})
     }
 })()

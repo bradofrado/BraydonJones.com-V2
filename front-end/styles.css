@@ -19,6 +19,7 @@
 
 :root {
     --color-primary: #404789;
+    --color-primary-hover: #363c6e;
     --color-secondary: #57DCF2;
     --white: #fafafa;
     --black: #000;
@@ -110,6 +111,12 @@ img {
 
 }
 
+.flex-grid {
+    display: grid;
+    grid-template-columns: auto;
+    gap: 40px;
+}
+
 
 .padding-container {
     padding: 30px 30px;
@@ -181,10 +188,11 @@ button.navbar-toggler {
 }
 
 .image-button-container {
-    width: 300px;
-    height: 300px;
-    margin: 20px 50px;
+    width: 200px;
+    height: 200px;
+    margin: auto;
     position: relative;
+    overflow: hidden;
 }
 
 .image-button-text {
@@ -195,19 +203,32 @@ button.navbar-toggler {
 .image-button {
     position: relative;
     color: inherit;
-    background-color: #a175a5;
+    background-color: var(--color-primary);
     transition: background-color .3s ease-in-out;
     width: 300px;
     height: 300px;
 }
 
 .image-button:hover {
-    
-    background-color: #e7b9eb;
+    background-color: var(--color-primary-hover);
     
     color: inherit;
     cursor: pointer;
-    
+}
+
+.no-color {
+    background-color: hsla(0,0%,100%,0);
+}
+
+.no-color:hover {
+    background-color: hsla(0,0%,100%,.25)!important;
+}
+
+.center-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 #footer {
@@ -309,5 +330,14 @@ button.navbar-toggler {
 
     .flex-split > *, .flex-split-info > * {
         min-width: 30%;
+    }
+
+    .flex-grid {
+        grid-template-columns: auto auto auto;
+    }
+
+    .image-button-container {
+        width: 300px;
+        height: 300px;
     }
 }

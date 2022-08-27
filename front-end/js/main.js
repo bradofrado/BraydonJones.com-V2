@@ -18,11 +18,21 @@ String.prototype.format = function() {
     return s.toString();
 }
 
-String.prototype.object = function(obj) {
+String.prototype.object = function(obj, scrict) {
     let s = this;
 
-    for (let name in obj) {
-        s = s.replace(`{${name}}`, obj[name])
+    //Scrict means that anything in brackets that doesn't have an object is replaced with ''
+    if (scrict) {
+        let matches = /{(\w*)}/g.execAll(s);
+
+        for (let match of matches) {
+            const name = match[1];
+            s = s.replaceAll(match[0], obj[name] || '')
+        }
+    } else {
+        for (let name in obj) {
+            s = s.replaceAll(`{${name}}`, obj[name])
+        }
     }
 
     return s.toString();
@@ -51,7 +61,9 @@ String.prototype.component = function(comps) {
                 const propName = propMatch[1];
                 const propValue = propMatch[2];
 
-                props[propName] = propValue;
+                if (propValue) {
+                    props[propName] = propValue;
+                }
             }
 
             results.push({props, match: match[0]});
@@ -76,37 +88,15 @@ String.prototype.component = function(comps) {
     }
 
     return s.toString();
+}
 
-    const matches = /<(\w+)\s*(((\w*)="([^"]*)"\s*)*)\s*>/g.execAll(s);
+Array.prototype.objects = function(s) {
+    return this.map(x => s.object(x, true)).join('');
+}
 
-    for (let match of matches) {
-        const name = match[1];
-        const propsString = match[2];
-
-        const props = {};
-        const propMatches = /(\w*)="([^"]*)"\s*/g.execAll(propsString);
-        for (let propMatch of propMatches) {
-            const propName = propMatch[1];
-            const propValue = propMatch[2];
-
-            props[propName] = propValue;
-        }
-
-        const comp = comps[name];
-        if (!comp) {
-            throw new Error("Invalid component " + name);
-        }
-
-        const instance = new comp(props);
-
-        if (!instance.render) {
-            throw new Error("Instance of " + name + " must have a render method");
-        }
-
-        s = s.replace(match[0], instance.render());
-    }
-
-    return s.toString();
+function isNullOrUndefined(obj) {
+    var a;
+    return obj === null || obj === a;
 }
 
 const $header = $('#header');
