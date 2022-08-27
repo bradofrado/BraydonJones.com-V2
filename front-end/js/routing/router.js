@@ -148,6 +148,16 @@ router = (function () {
         if (typeof content === "String") {
             content = $(content);
         }
+
+        if (content.then) {
+            $(id).html(views.loading.content);
+
+            content.then((next) => {
+                $(id).html(next);
+            });
+
+            return;
+        }
     
         $(id).html(content);        
     }
@@ -157,6 +167,12 @@ router = (function () {
                     <h1>404 File Not Found</h1>
                     <p>Sorry, the file you are looking for does not exist</p>
                 </div`
+    });
+
+    this.view('loading', null, function() {
+        return `<div class="container">
+                    <h1>Loading</h1>
+                </div>`
     })
 
     this.view('home', null, function () {

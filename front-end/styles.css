@@ -75,7 +75,7 @@ img {
 }
 
 .button-primary {
-    background-color: #0f8aa0;
+    background-color: var(--color-primary);
     height: 2.5rem;
     color: #fff;
     margin: 1rem 0;
@@ -83,7 +83,7 @@ img {
 }
 
 .button-primary:hover {
-    background-color: #18c6e5;
+    background-color: var(--color-primary-hover);
 }
 
 .title {
@@ -231,6 +231,32 @@ button.navbar-toggler {
     transform: translate(-50%, -50%);
 }
 
+.login-page {
+    margin: 50px 0;
+    text-align: center;
+}
+
+.signin-container {
+    margin: 0 auto;
+    width: 300px;
+    padding: 20px;
+}
+
+.form-field {
+    width: 100%;
+    margin-bottom: 0.5rem;
+}
+
+.form-field input {
+    width: 100%;
+    border: 0.5px solid #ced4da;
+    border-radius: 3px;
+    height: 35px;
+    color: #495057;
+    padding: 10px 10px;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
 #footer {
     padding: 2rem;
     /* position: absolute;
@@ -317,15 +343,19 @@ button.navbar-toggler {
 
     .flex-split, .flex-split-info {
         flex-direction: row;
-        align-items: center;
+    }
+
+    .flex-split :nth-child(2) {
+        padding-left: 50px;
     }
 
     .flex-split .text-container {
-        padding-left: 50px;
+        align-self: center;
     }
 
     .flex-split .text-container > * {
         font-size: 60px;
+
     }
 
     .flex-split > *, .flex-split-info > * {

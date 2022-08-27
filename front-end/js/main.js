@@ -38,9 +38,17 @@ String.prototype.object = function(obj, scrict) {
     return s.toString();
 }
 
-String.prototype.component = function(comps) {
+String.prototype.event = function() {
+
+}
+
+String.prototype.component = function(comps, props) {
     let s = this;
 
+    if (props) {
+        s = s.object(props, true);
+    }
+    
     const matchComponent = function(compName) {
         const propsRegexString = `(\\w*)="([^"]*)"\\s*`;
         const tagRegexString = `<({0})\\s*(({1})*)\\s*>`;
@@ -106,3 +114,23 @@ header.appendTo($header);
 const $footer = $('#footer');
 const footer = new controls.footer();
 footer.appendTo($footer);
+
+const axios = {
+    get: async function(url) {
+        const response = await fetch(url);
+        const data = await response.json();
+    
+        return data;
+    },
+    post: async function(url, body) {
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(body)
+        });
+
+        return response.json();
+    }
+}
