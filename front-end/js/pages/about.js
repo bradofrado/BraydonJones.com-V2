@@ -15,7 +15,7 @@ pages.about = (function() {
     return function() {
         const info = [
             { title: "My Story", info: "I grew up in the small town of Mountain Green, Utah. Motivated by father's career in programming, I started coding when I was 14 and have since" },
-            //{ title: "Experience", info: "I have many hobbies"}
+            { title: "Experience", info: "I have many hobbies"}
         ];
         return `<div class="flex-split padding-container">
                     <div class="image-container">
@@ -31,7 +31,7 @@ pages.about = (function() {
                             I have many hobbies and passions.
                         </h1>
                     </div>
-                    ${info.map(x => `<@ InfoContainer title="{title}" info="{info}" @>`.object(x)).join('')}
+                    ${info.map(x => `<InfoContainer title="{title}" info="{info}">`.object(x)).join('')}
                 </div>`.component({InfoContainer})
     }
 })()
