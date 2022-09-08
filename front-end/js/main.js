@@ -107,6 +107,13 @@ function isNullOrUndefined(obj) {
     return obj === null || obj === a;
 }
 
+const onATagClick = function(e) {
+    e.preventDefault();
+    const $self = $(this);
+    const href = $self.attr('href');
+    router.changeRoute(href);
+}
+
 const $header = $('#header');
 const header = new controls.header();
 header.appendTo($header);
@@ -115,22 +122,54 @@ const $footer = $('#footer');
 const footer = new controls.footer();
 footer.appendTo($footer);
 
+const handleResponse = async function(response) {
+    let data;
+    try {
+        data = await response.json();
+    } catch {
+
+    }
+
+    if (!response.ok) {
+        throw data;
+    }
+
+    return data;
+}
 const axios = {
     get: async function(url) {
-        const response = await fetch(url);
-        const data = await response.json();
-    
-        return data;
+        url = url.length && url.startsWith('/api') ? 'http://localhost:3000' + url : url;
+        const response = await fetch(url, {
+            method: 'GET',
+            credentials: 'include',
+        });
+        
+        return await handleResponse(response);
     },
     post: async function(url, body) {
+        url = url.length && url.startsWith('/api') ? 'http://localhost:3000' + url : url;
         const response = await fetch(url, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
             },
+            credentials: 'include',
             body: JSON.stringify(body)
         });
 
-        return response.json();
+        return await handleResponse(response);
+    },
+    delete: async function(url, body) {
+        url = url.length && url.startsWith('/api') ? 'http://localhost:3000' + url : url;
+        const response = await fetch(url, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            credentials: 'include',
+            body: JSON.stringify(body)
+        });
+
+        return await handleResponse(response);
     }
 }

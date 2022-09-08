@@ -140,6 +140,7 @@ router.post('/', async (req, res) => {
 
     try {
         req.body.username = req.body.username.toLowerCase();
+        req.body.email = req.body.email.toLowerCase();
 
         const existingUser = await User.findOne({
             username: req.body.username
@@ -238,9 +239,7 @@ router.get('/', validUser, async (req, res) => {
             });
         }
 
-        res.send({
-            user: req.user
-        });
+        res.send(req.user);
     } catch (error) {
         console.log(error);
         return res.sendStatus(500);

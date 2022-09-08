@@ -1,6 +1,6 @@
 class Component {
     scrict = true;
-
+    
     constructor(props) {
         this.props = props;
     }
@@ -9,5 +9,16 @@ class Component {
         const template = this.template();
 
         return template.object(this.props, this.scrict);
+    }
+
+    init = function($element) {
+        
+    }
+
+    appendTo = function($parent) {
+        let $element = $(this.render());
+        this.init($element);
+
+        $element.appendTo($parent);
     }
 }

@@ -24,13 +24,6 @@ controls.header = (function() {
 
         const tabs = {};
 
-        const onATagClick = function(e) {
-            e.preventDefault();
-            const $self = $(this);
-            const href = $self.attr('href');
-            router.changeRoute(href);
-        }
-
         const createMenuTab = function(text, name, path) {
             const $tab = $(templateTab);
             const $a = $tab.find('a');

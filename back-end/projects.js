@@ -37,6 +37,25 @@ router.get('/', async (req, res) => {
     }
 });
 
+router.get('/:id', async(req, res) => {
+    try {
+        const project = await Project.findOne({
+            _id: req.params.id
+        });
+
+        if (!project) {
+            res.status(400).send({
+                message: "Cannot find project with id " + req.params.id
+            });
+        }
+
+        res.send(project);
+    } catch(err) {
+        console.log(err);
+        res.sendStatus(500);
+    }
+});
+
 router.post('/', validUser(['admin']), upload, async (req, res) => {
     if (!req.body.name || !req.body.description || !req.body.from || !req.body.to) {
         return res.status(400).send({

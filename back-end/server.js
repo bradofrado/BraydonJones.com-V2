@@ -29,12 +29,20 @@ app.use(cookieSession({
     }
 }));
 
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', 'http://localhost:8080');
+    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header('Access-Control-Allow-Credentials', 'true');
+    next();
+});
+
 const projects = require('./projects.js');
 const users = require('./users.js');
 const experience = require('./experience.js');
 
-app.use('/api/projects', projects.model);
-app.use('/api/users', users.model);
-app.use('/api/experience', experience.model);
+app.use('/api/projects', projects.routes);
+app.use('/api/users', users.routes);
+app.use('/api/experience', experience.routes);
 
 app.listen(port, () => console.log(`Server listening on port ${port}!`));
