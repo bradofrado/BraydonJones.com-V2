@@ -3,22 +3,100 @@ class Component {
     
     constructor(props) {
         this.props = props;
+
+        this.refs = {};
+    }
+
+    //Binds the events (<button @click="onClick">)
+    // and assigns any element with a name attribute to this.${name}
+    #bindEvents = function($element) {
+        if ($element.nodeType === 3) return;
+
+        for (var attr of $element.attributes) {
+            if (attr.name.startsWith('@')) {
+                let name = attr.name.substring(1);
+                $($element).on(name, this[attr.value].bind(this));
+            }
+
+            if (attr.name === 'name') {
+                let name = '$' + attr.value;
+                this[name] = $($element);
+            }
+        }
+
+        for (var child of $element.childNodes) {
+            this.#bindEvents(child);
+        }
+    }
+
+    //Any reference to a component object with a name attribute is delt with here
+    #setClasses = function($element) {
+        //This is the wrapper object for an uninstantiated class that.
+        //  it holds the information of where to mount it to the DOM
+        //  Mount and instantiate it by calling the .mount(props) method
+        let mountableObject = function(name, comp, $parent) {
+            this.mount = function(props) {
+                //Initialize the component with the props
+                this[name] = new comp(props);
+
+                //Put the component where it belongs in the dom
+                this[name].appendTo($parent);
+
+                //Get rid of the parent div where this component now belongs
+                $parent.children().unwrap();
+            }
+        }
+
+        //if we have made references to other classes or objects, then add those here
+        for (let name in this.refs) {
+            let _name = '$' + name;
+            
+            //<ProfileBody name="body"/> would satisy this senario.
+            //The instance of ProfileBody would be referenced at this.$body
+            if (typeof this.refs[name] === 'object') {
+                this[_name] = this.refs[name];
+            //<?ProfileBody name="body"/> would satisy this senario.
+            //The class (not instantiated) of ProfileBody would be referenced at this.$body
+            //To mount it in the DOM, do this.$body.mount(props) which instantiates it
+            } else {
+                let $parent = $element.find(`[name="${name}"]`);
+                
+                //If the name attribute is on the root node, make the root the parent
+                if ($parent.length == 0 && $element.attr('name') == name) {
+                    $parent = $element;
+                }
+                this[_name] = new mountableObject(_name, this.refs[name], $parent);
+                this[_name].mount = this[_name].mount.bind(this);
+            }
+        }
     }
 
     render = function() {
-        const template = this.template();
+        let template = this.template();
+
+        if (this.components) {
+            template = template.component(this.components, null, this.refs);
+        }
 
         return template.object(this.props, this.scrict);
     }
 
     init = function($element) {
-        
+
     }
 
     appendTo = function($parent) {
         let $element = $(this.render());
-        this.init($element);
 
-        $element.appendTo($parent);
+        this.#bindEvents($element[0]);
+        this.#setClasses($element);
+        
+        let p = this.init($element);
+
+        if (p && p.then) {
+            p.then(() => $element.appendTo($parent))
+        } else {
+            $element.appendTo($parent);
+        }
     }
 }

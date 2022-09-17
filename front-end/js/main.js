@@ -42,7 +42,7 @@ String.prototype.event = function() {
 
 }
 
-String.prototype.component = function(comps, props) {
+String.prototype.component = function(comps, props, classes) {
     let s = this;
 
     if (props) {
@@ -51,7 +51,7 @@ String.prototype.component = function(comps, props) {
     
     const matchComponent = function(compName) {
         const propsRegexString = `(\\w*)="([^"]*)"\\s*`;
-        const tagRegexString = `<({0})\\s*(({1})*)\\s*>`;
+        const tagRegexString = `<(\\??)({0})\\s*(({1})*)\\s*\\/?>`;
 
         const regex = new RegExp(tagRegexString.format(compName, propsRegexString), 'g');
         const propsRegex = new RegExp(propsRegexString, 'g');
@@ -60,8 +60,9 @@ String.prototype.component = function(comps, props) {
 
         const results = [];
         for (let match of matches) {
-            const name = match[1];
-            const propsString = match[2];
+            const isClass = match[1] !== "";
+            const name = match[2];
+            const propsString = match[3];
 
             props = {};
             const propMatches = propsRegex.execAll(propsString);
@@ -74,10 +75,18 @@ String.prototype.component = function(comps, props) {
                 }
             }
 
-            results.push({props, match: match[0]});
+            results.push({props, match: match[0], isClass});
         }
 
         return results;
+    }
+
+    let setClasses = function(name, instance) {
+        if (classes[name]) {
+            throw new Error("Instance with the name " + name + " has already been defined")
+        }
+
+        classes[name] = instance;
     }
 
     
@@ -85,13 +94,34 @@ String.prototype.component = function(comps, props) {
         const results = matchComponent(compName);
 
         for (let result of results) {
-            const instance = new comps[compName](result.props);
+            //Is class is when you put <?class> instead of <class>
+            //We do not want to initialize this, just provide a place where it can be mounted (<div name=""></div>)
+            if (result.isClass) {
+                if (!classes) {
+                    throw new Error("Must include a class object for <?class>");
+                }
 
-            if (!instance.render) {
-                throw new Error("Instance of " + compName + " must have a render method");
+                if (!result.props.name) {
+                    throw new Error("Must have a name on <?class>");
+                }
+
+                setClasses(result.props.name, comps[compName]);
+                let $parent = `<div name="${result.props.name}"></div>`;
+                s = s.replace(result.match, $parent);
+            } else {
+                const instance = comps[compName].render ? comps[compName] : new comps[compName](result.props);
+
+                if (!instance.render) {
+                    throw new Error("Instance of " + compName + " must have a render method");
+                }
+
+                //If the instance has a name property on it, set classes to this instance
+                if (typeof classes === 'object' && result.props.name) {
+                    setClasses(result.props.name, instance);
+                }
+
+                s = s.replace(result.match, instance.render());
             }
-
-            s = s.replace(result.match, instance.render());
         }
     }
 
@@ -109,7 +139,7 @@ function isNullOrUndefined(obj) {
 
 const onATagClick = function(e) {
     e.preventDefault();
-    const $self = $(this);
+    const $self = $(e.currentTarget);
     const href = $self.attr('href');
     router.changeRoute(href);
 }

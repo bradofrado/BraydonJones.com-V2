@@ -84,6 +84,30 @@ router = (function () {
         const state = window.history.state;
         window.history.pushState(state, '', path);
     }
+
+    let getContent = async function(content, options) {
+        if (typeof content === 'function' && content.toString().startsWith('class')) {
+            return new content(options);
+        }
+
+        content = content(options);
+        
+        if (typeof content === "string") {
+            content = $(content);
+        }
+
+        if (content.then) {
+            next = await content;
+            
+            if (typeof next === 'string') {
+                return $(next);
+            }
+            
+            return next;
+        }
+
+        return content;
+    }
     
     this.view = function(name, id, templateFunction, path) {
         views[name] = {content: templateFunction, id: id};
@@ -109,7 +133,7 @@ router = (function () {
         }
     }
     
-    this.router = function() {
+    this.router = async function() {
         const path = window.location.pathname || "/";
     
         let route = routers[path];
@@ -143,23 +167,11 @@ router = (function () {
     
         const id = view.id ? view.id : '#app';
 
-        let content = view.content(view.options);
-
-        if (typeof content === "String") {
-            content = $(content);
-        }
-
-        if (content.then) {
-            $(id).html(views.loading.content);
-
-            content.then((next) => {
-                $(id).html(next);
-            });
-
-            return;
-        }
-    
-        $(id).html(content);        
+        $(id).html(views.loading.content());
+        const content = await getContent(view.content, view.options);
+        
+        $(id).html('');
+        content.appendTo($(id));        
     }
 
     this.view('404', null, function () {

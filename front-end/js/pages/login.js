@@ -1,17 +1,50 @@
-class Profile extends Component {
+class Admin extends Component {
     constructor(props) {
         super(props);
     }
 
     template = function() {
+        return `<div>You are an admin, {firstname}!</div>`
+    }
+}
+
+class ProfileBody extends Component {
+    constructor(props) {
+        super(props);
+    }
+    
+    components = {Admin};
+
+    template = function() {
+        if (!this.props.roles.includes('admin')) {
+            return ``
+        }
+
+        return `<div><?Admin name="admin" /></div>`
+    }
+
+    init = function() {
+        this.$admin && this.$admin.mount(this.props)
+    }
+}
+
+class Profile extends Component {
+    constructor(props) {
+        super(props);
+    }
+
+    components = {ProfileBody};
+
+    template = function() {
         return `<div>
                     <h1>Welcome, {firstname}</h1>
-                    <a href="">Logout</a>
+                    <a href="" @click="onLogout">Logout</a>
+                    <?ProfileBody name="body">
                 </div>`
     }
 
-    init = function($element) {
-        $element.find('a').on('click', this.onLogout);
+    init = function() {
+        this.$body.mount(this.props);
     }
 
     onLogout = function(e) {
@@ -25,6 +58,8 @@ class Profile extends Component {
 class Login extends Component {
     constructor(props) {
         super(props);
+
+        this.onATagClick = onATagClick;
     }
 
     template = function() {
@@ -32,7 +67,7 @@ class Login extends Component {
                     <h1>Log in</h1>
                     <p>Login to Braydon Jones' website</p>
                     <div class="signin-container">
-                        <form class="d-flex flex-column">
+                        <form class="d-flex flex-column" @submit="onSubmit">
                             <div class="form-field">
                                 <input name="username" type="text" placeholder="Username">
                             </div>
@@ -40,20 +75,10 @@ class Login extends Component {
                                 <input name="password" type="password" placeholder="Password">
                             </div>
                             <button type="submit" class="button button-primary h-2">Log in</button>
-                            <a href="/signup" class="mt-1">Sign up</a>
+                            <a href="/signup" class="mt-1" @click="onATagClick">Sign up</a>
                         </form>
                     </div>
                 </div>`
-    }
-
-    init = function($element) {
-        let $form = $element.find('form');
-        this.$username = $element.find('[name="username"]');
-        this.$password = $element.find('[name="password"]');
-
-        $form.on('submit', this.onSubmit.bind(this));
-
-        $element.find('a').on('click', onATagClick);
     }
 
     onSubmit = function(e) {
@@ -67,25 +92,29 @@ class Login extends Component {
     }
 }
 
-pages.login = async function() {
-    const template =  `<div class="login-page">
-                    </div>`;
-    
-    const $element = $(template);
+pages.login = class extends Component {
+    template =  function() {
+                    return `<div class="login-page">
+                            <?Profile name="profile"/>
+                            <?Login name="login"/>
+                        </div>`;
+                }
+    components = {Profile, Login};
 
-    let component = Login;
-    let props = null;
-    try {
-        props = await axios.get('/api/users');
-        component = Profile;
-    } catch {
-    
+    init = async function($element) {
+        let user;
+        try {
+            user = await axios.get('/api/users');
+        } catch {
+        
+        }
+
+        if (user) {
+            this.$profile.mount(user);
+        } else {
+            this.$login.mount();
+        }
     }
-
-    let instance = new component(props);
-    instance.appendTo($element);
-
-    return $element;
 }
 
 //Go to the login screen on Ctrl+L
@@ -97,7 +126,7 @@ $(document).on('keydown', function(e) {
 })
 
 pages.signup = function() {
-    const template = `<div class="login-page">
+    template = `<div class="login-page">
                         <div>
                             <h1>Sign Up</h1>
                             <div class="signin-container">
