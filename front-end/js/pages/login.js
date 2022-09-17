@@ -1,10 +1,174 @@
-class Admin extends Component {
+class EditTemplate extends Component {
     constructor(props) {
         super(props);
     }
 
     template = function() {
-        return `<div>You are an admin, {firstname}!</div>`
+        return `<div id="editTemplate">
+                    <p>Populating <span name="typeLabel">{type}</span></p>
+                    <form  @submit="onSubmit">
+                        <div>
+                            <label>Name:</label>
+                            <input name="name" />
+                        </div>
+                        <div>
+                            <label>Description: </label>
+                            <textarea name="description"></textarea>
+                        </div>
+                        <div>
+                            <label>From:</label>
+                            <input name="from" />
+                        </div>
+                        <div>
+                            <label>To: </label>
+                            <input name="to"/>
+                        </div>
+                        <div>
+                            <input type="file" name="image"/>
+                        </div>
+                        <button type="submit" name="submit">Submit</button>
+                        <button type="button" name="delete" @click="onDelete">Delete</button>
+                        <button type="button" @click="onClear">Clear</button>
+                    </form>
+                </div>`
+    }
+
+    init = function() {
+        this.$delete.detach();
+    }
+
+    onClear = function(e) {
+        this.populate(this.props.type);
+    }
+
+    onSubmit = function(e) {
+        e.preventDefault();
+        let formData = new FormData();
+
+        formData.append('name', this.$name.val());
+        formData.append('description', this.$description.val());
+        formData.append('from', this.$from.val());
+        formData.append('to', this.$to.val());
+        if (this.$image.prop('files')[0]) {
+            formData.append('image', this.$image.prop('files')[0], this.$image.prop('files')[0].name);
+        }
+
+        let self = this;
+        if (this.id) {
+            axios.put('/api/' + this.props.type + '/' + this.id, formData).then(function(data) {
+                self.populate(self.props.type);
+                location.reload();
+            });
+        } else {
+            axios.post('/api/' + this.props.type, formData).then(function(data) {
+                self.populate(self.props.type);
+                location.reload();
+            });
+        }
+    }
+
+    onDelete = function(e) {
+        if (!this.id) {
+            throw new Error("No id to delete");
+        }
+
+        let self = this;
+        axios.delete('/api/' + this.props.type + '/' + this.id).then(function(data) {
+            self.populate(self.props.type);
+            location.reload();
+        })
+    }
+
+    populate = function(type, item) {
+        item = $.extend({name: '', description: '', to: '', from: '', _id: null}, item);
+        this.props.type = type;
+        this.$typeLabel.html(type);
+        this.$name.val(item.name);
+        this.$description.val(item.description);
+        this.$from.val(item.from);
+        this.$to.val(item.to);
+
+        this.id = item._id;
+
+        if (this.id) {
+            this.$delete.insertAfter(this.$submit);
+        } else {
+            this.$delete.detach();
+        }
+    }
+}
+
+class EditTemplateButton extends Component {
+    constructor(props) {
+        super(props);
+    }
+
+    components = {ImageButton}
+
+    template = function() {
+        return `<div class="m-2">
+                    <ImageButton label="{name}" @click="onClick"/>
+                </div>`;
+    }
+
+    onClick = function(e) {
+        $(this).trigger('click', [this.props]);
+    }
+}
+
+class EditTemplateList extends Component {
+    constructor(props) {
+        super(props);
+    }
+
+    template = function() {
+        return `<div>
+                    <h2>{type}</h2>
+                    <div name="container" class="d-flex"></div>
+                </div>`;
+    }
+
+    init = async function($element) {
+        const createButton = function(item) {
+            const instance = new EditTemplateButton(item);
+            $(instance).on('click', this.onEditClick.bind(this));
+            instance.appendTo(this.$container);
+        }.bind(this);
+
+        const response = await axios.get('/api/' + this.props.type);
+
+        for (let item of response) {
+            createButton(item);
+        }
+
+        //Add the new button
+        createButton({name: "New " + this.props.type, _id: null});
+    }
+
+    onEditClick = function(e, item) {
+        $(this).trigger('click', [this.props.type, item]);
+    }
+}
+
+class Admin extends Component {
+    constructor(props) {
+        super(props);
+    }
+
+    components = {EditTemplate, EditTemplateList};
+
+    template = function() {
+        return `<div>
+                    <p>You are an admin, {firstname}!</p>
+                    <EditTemplate name="edit" type="projects"/>
+                    <EditTemplateList type="projects" @click="onTemplateClick"/>
+                    <EditTemplateList type="experience" @click="onTemplateClick"/>
+                    <EditTemplateList type="hobbies" @click="onTemplateClick"/>
+                </div>`
+    }
+
+    onTemplateClick = function(e, type, item) {
+        this.$edit.populate(type, item);
     }
 }
 
@@ -36,7 +200,7 @@ class Profile extends Component {
     components = {ProfileBody};
 
     template = function() {
-        return `<div>
+        return `<div class="container">
                     <h1>Welcome, {firstname}</h1>
                     <a href="" @click="onLogout">Logout</a>
                     <?ProfileBody name="body">

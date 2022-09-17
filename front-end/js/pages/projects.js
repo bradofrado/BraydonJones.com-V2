@@ -1,12 +1,15 @@
-pages.projects = function() {
-    const projects = [
-        {image: "/images/about-braydon.jpg", label: "Hello", id: "0"},
-        {image: "/images/about-braydon.jpg", label: "Hello", id: "1"},
-        {image: "/images/about-braydon.jpg", label: "Hello", id: "2"},
-        {image: "/images/about-braydon.jpg", label: "Hello", id: "3"},
-    ];
+pages.projects = async function() {
+    let getProjects = async function() {
+        try {
+            return await axios.get('/api/projects');
+        } catch {
+            return [];
+        }
+    }
+
+    let projects = await getProjects();
 
     return `<div class="container flex-grid">
-                ${projects.objects(`<ImageButton image="{image}" label="{label}" to="/projects/{id}">`)}
+                ${projects.objects(`<ImageButton image="{image}" label="{label}" to="/projects/{_id}">`)}
             </div>`.component({ImageButton});
 }

@@ -35,6 +35,25 @@ router.get('/', async (req, res) => {
     }
 });
 
+router.get('/:id', async(req, res) => {
+    try {
+        const hobby = await Hobby.findOne({
+            _id: req.params.id
+        });
+
+        if (!hobby) {
+            res.status(400).send({
+                message: "Cannot find hobby with id " + req.params.id
+            });
+        }
+
+        res.send(hobby);
+    } catch(err) {
+        console.log(err);
+        res.sendStatus(500);
+    }
+});
+
 router.post('/', validUser(['admin']), upload, async (req, res) => {
     if (!req.body.name || !req.body.description) {
         return res.status(400).send({

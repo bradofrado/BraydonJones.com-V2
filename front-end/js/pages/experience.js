@@ -1,19 +1,22 @@
-pages.experiences = function() {
-    const experience = [
-        {image: "/images/about-braydon.jpg", label: "Hello", id: "0"},
-        {image: "/images/about-braydon.jpg", label: "Hello", id: "1"},
-        {image: "/images/about-braydon.jpg", label: "Hello", id: "2"},
-        {image: "/images/about-braydon.jpg", label: "Hello", id: "3"},
-    ];
+pages.experiences = async function() {
+    let getExperience = async function() {
+        try {
+            return await axios.get('/api/experience');
+        } catch {
+            return [];
+        }
+    }
+
+    let experience = await getExperience();
     
     return `<div class="container flex-grid">
-                ${experience.objects(`<ImageButton image="{image}" label="{label}" to="/experience/{id}">`)}
+                ${experience.objects(`<ImageButton image="{image}" label="{label}" to="/experience/{_id}">`)}
             </div>`.component({ImageButton});
 }
 
 pages.experience = async function(options) {
     const getExperience = async function (id) {
-        const data = await axios.get('https://api.openweathermap.org/data/2.5/weather?q=odgen,US&units=imperial&APPID=90c44777a8e8b56c5560e70182b508ff');
+        const data = await axios.get('/api/experience/' + id);
 
         return data;
     }

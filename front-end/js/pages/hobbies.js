@@ -1,19 +1,22 @@
-pages.hobbies = function() {
-    const hobbies = [
-        {image: "/images/about-braydon.jpg", label: "Hello", id: "0"},
-        {image: "/images/about-braydon.jpg", label: "Hello", id: "1"},
-        {image: "/images/about-braydon.jpg", label: "Hello", id: "2"},
-        {image: "/images/about-braydon.jpg", label: "Hello", id: "3"},
-    ];
+pages.hobbies = async function() {
+    let getHobbies = async function() {
+        try {
+            return await axios.get('/api/hobbies');
+        } catch {
+            return [];
+        }
+    }
+
+    let hobbies = await getHobbies();
     
     return `<div class="container flex-grid">
-                ${hobbies.objects(`<ImageButton image="{image}" label="{label}" to="/hobbies/{id}">`)}
+                ${hobbies.objects(`<ImageButton image="{image}" label="{label}" to="/hobbies/{_id}">`)}
             </div>`.component({ImageButton});
 }
 
 pages.hobby = async function(options) {
     const getHobby = async function (id) {
-        const data = await axios.get('https://api.openweathermap.org/data/2.5/weather?q=odgen,US&units=imperial&APPID=90c44777a8e8b56c5560e70182b508ff');
+        const data = await axios.get('/api/hobbies/' + id);
 
         return data;
     }

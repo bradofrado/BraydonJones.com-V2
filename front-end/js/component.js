@@ -15,6 +15,10 @@ class Component {
         for (var attr of $element.attributes) {
             if (attr.name.startsWith('@')) {
                 let name = attr.name.substring(1);
+                if (!this[attr.value]) {
+                    throw new Error("Cannot find function " + attr.value);
+                }
+                
                 $($element).on(name, this[attr.value].bind(this));
             }
 
@@ -26,6 +30,24 @@ class Component {
 
         for (var child of $element.childNodes) {
             this.#bindEvents(child);
+        }
+    }
+
+    #bindComponentEvents = function(components) {
+        //Bind the events on components
+        for (let name in components) {
+            const instance = components[name];
+            if (instance.props) {
+                for (let propName in instance.props) {
+                    if (propName.startsWith('@')) {
+                        let propValue = instance.props[propName];
+                        let name = propName.substring(1);
+                        $(instance).on(name, this[propValue].bind(this));
+
+                        delete instance.props[propName];
+                    }
+                }
+            }
         }
     }
 
@@ -72,26 +94,38 @@ class Component {
     }
 
     render = function() {
-        let template = this.template();
+        let template = this.template().object(this.props, this.scrict);
 
         if (this.components) {
             template = template.component(this.components, null, this.refs);
         }
 
-        return template.object(this.props, this.scrict);
+        return template;
     }
 
     init = function($element) {
+        //Mount all of the references to objects
+        for (let name in this.refs) {
+            let _name = '$' + name;
+            let $parent = $element.find(`[name="${name}"]`);
 
+            this[_name].appendTo($parent);
+
+            $parent.children().unwrap();
+        }
     }
 
     appendTo = function($parent) {
         let $element = $(this.render());
 
         this.#bindEvents($element[0]);
+        this.#bindComponentEvents(this.refs);
         this.#setClasses($element);
+
+        
         
         let p = this.init($element);
+        this.$root = $element;
 
         if (p && p.then) {
             p.then(() => $element.appendTo($parent))

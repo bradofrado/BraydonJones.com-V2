@@ -50,7 +50,7 @@ String.prototype.component = function(comps, props, classes) {
     }
     
     const matchComponent = function(compName) {
-        const propsRegexString = `(\\w*)="([^"]*)"\\s*`;
+        const propsRegexString = `(@?\\w*)="([^"]*)"\\s*`;
         const tagRegexString = `<(\\??)({0})\\s*(({1})*)\\s*\\/?>`;
 
         const regex = new RegExp(tagRegexString.format(compName, propsRegexString), 'g');
@@ -81,7 +81,7 @@ String.prototype.component = function(comps, props, classes) {
         return results;
     }
 
-    let setClasses = function(name, instance) {
+    let setClasses = function(name, instance, props) {
         if (classes[name]) {
             throw new Error("Instance with the name " + name + " has already been defined")
         }
@@ -89,7 +89,7 @@ String.prototype.component = function(comps, props, classes) {
         classes[name] = instance;
     }
 
-    
+    let nextName = 0;
     for (let compName in comps) {
         const results = matchComponent(compName);
 
@@ -116,11 +116,15 @@ String.prototype.component = function(comps, props, classes) {
                 }
 
                 //If the instance has a name property on it, set classes to this instance
-                if (typeof classes === 'object' && result.props.name) {
-                    setClasses(result.props.name, instance);
-                }
+                if (typeof classes === 'object') {
+                    const name = result.props.name ? result.props.name : `${++nextName}`;
+                    setClasses(name, instance);
+                    let $parent = `<div name="${name}"></div>`;
 
-                s = s.replace(result.match, instance.render());
+                    s = s.replace(result.match, $parent);
+                } else {
+                    s = s.replace(result.match, instance.render());
+                }
             }
         }
     }
@@ -177,15 +181,42 @@ const axios = {
         return await handleResponse(response);
     },
     post: async function(url, body) {
-        url = url.length && url.startsWith('/api') ? 'http://localhost:3000' + url : url;
-        const response = await fetch(url, {
+        const isFormData = body instanceof(FormData);
+        body = isFormData ? body : JSON.stringify(body);
+        let params = {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
             credentials: 'include',
-            body: JSON.stringify(body)
-        });
+            body: body
+        }
+
+        if (!isFormData) {
+            params.headers = {
+                'Content-Type': 'application/json',
+            }
+        }
+
+        url = url.length && url.startsWith('/api') ? 'http://localhost:3000' + url : url;
+        const response = await fetch(url, params);
+
+        return await handleResponse(response);
+    },
+    put: async function(url, body) {
+        const isFormData = body instanceof(FormData);
+        body = isFormData ? body : JSON.stringify(body);
+        let params = {
+            method: 'PUT',
+            credentials: 'include',
+            body: body
+        }
+
+        if (!isFormData) {
+            params.headers = {
+                'Content-Type': 'application/json',
+            }
+        }
+
+        url = url.length && url.startsWith('/api') ? 'http://localhost:3000' + url : url;
+        const response = await fetch(url, params);
 
         return await handleResponse(response);
     },
