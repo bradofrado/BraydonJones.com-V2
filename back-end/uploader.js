@@ -13,6 +13,10 @@ const upload = function(path) {
     })
 };
 
+const none = function() {
+    return multer().none();
+}
+
 const deletePhoto = function(path) {
     if (!path) return;
     try {
@@ -28,5 +32,6 @@ const deletePhoto = function(path) {
 
 module.exports = {
     upload: upload,
+    none: none,
     delete: deletePhoto
 }

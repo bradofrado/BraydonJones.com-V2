@@ -161,6 +161,7 @@ class Admin extends Component {
         return `<div>
                     <p>You are an admin, {firstname}!</p>
                     <EditTemplate name="edit" type="projects"/>
+                    <EditTemplateList type="about" @click="onTemplateClick"/>
                     <EditTemplateList type="projects" @click="onTemplateClick"/>
                     <EditTemplateList type="experience" @click="onTemplateClick"/>
                     <EditTemplateList type="hobbies" @click="onTemplateClick"/>

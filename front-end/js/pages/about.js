@@ -12,11 +12,18 @@ pages.about = (function() {
         }
     }
 
-    return function() {
-        const info = [
-            { title: "My Story", info: "I grew up in the small town of Mountain Green, Utah. Motivated by father's career in programming, I started coding when I was 14 and have since" },
-            { title: "Experience", info: "I have many hobbies"}
-        ];
+    const getAbout = async function() {
+        try {
+            const response = await axios.get('/api/about');
+
+            return response;
+        } catch {
+            return [];
+        }
+    }
+
+    return async function() {
+        const info = await getAbout();
         return `<div class="flex-split padding-container">
                     <div class="image-container">
                         <img src="/images/about-braydon.jpg">
@@ -31,7 +38,7 @@ pages.about = (function() {
                             I have many hobbies and passions.
                         </h1>
                     </div>
-                    ${info.objects(`<InfoContainer title="{title}" info="{info}">`)}
+                    ${info.objects(`<InfoContainer title="{name}" info="{description}">`)}
                 </div>`.component({InfoContainer})
     }
 })()

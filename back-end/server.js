@@ -41,10 +41,12 @@ const projects = require('./projects.js');
 const users = require('./users.js');
 const experience = require('./experience.js');
 const hobbies = require('./hobbies.js');
+const about = require('./about.js');
 
 app.use('/api/projects', projects.routes);
 app.use('/api/users', users.routes);
 app.use('/api/experience', experience.routes);
 app.use('/api/hobbies', hobbies.routes);
+app.use('/api/about', about.routes);
 
 app.listen(port, () => console.log(`Server listening on port ${port}!`));
