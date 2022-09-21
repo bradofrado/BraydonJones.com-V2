@@ -20,7 +20,7 @@
 :root {
     --color-primary: #404789;
     --color-primary-hover: #363c6e;
-    --color-secondary: #57DCF2;
+    --color-secondary: #eeeff1;
     --white: #fafafa;
     --black: #000;
 }
@@ -89,12 +89,12 @@ img {
 .title {
     text-transform: uppercase;
     font-weight: 700;
-    font-size: 4.2em;
+    font-size: 3em;
     text-shadow: 2px 4px 20px #292017;
 }
 
 .title-container {
-    padding-top: 100px;
+    padding-top: 50px;
     text-align: center;
 }
 
@@ -103,12 +103,28 @@ img {
     flex-direction: column;
 }
 
-.flex-split .image-container {
+.flex-split-info p {
+    font-size: 20px;
+}
+
+.image-container {
     max-width: 500px;
 }
 
-.flex-split .text-container {
+.image-container.order-switch {
+    order: 0
+}
 
+.image-container.order-none {
+    order: 0
+}
+
+.info-container {
+    padding-top: 20px;
+}
+
+.flex-split .info-container .big {
+    font-size: 20px;
 }
 
 .flex-grid {
@@ -120,6 +136,11 @@ img {
 
 .padding-container {
     padding: 30px 30px;
+}
+
+.p-rl-10 {
+    padding-left: 10%;
+    padding-right: 10%;
 }
 
 .background-primary {
@@ -194,6 +215,7 @@ button.navbar-toggler {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    padding: 0 40px;
 }
 
 @media only screen and (min-width: 960px) {
@@ -347,7 +369,16 @@ button.navbar-toggler {
 }
 
 .m-t-10 {
-    margin-top: 150px;
+    margin-top: 50px;
+}
+
+.m-a {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.p-l-none {
+    padding-left: 0px !important;
 }
 @media only screen and (min-width: 960px) {
     html {
@@ -370,9 +401,12 @@ button.navbar-toggler {
         flex-direction: row;
     }
 
-    .flex-split :nth-child(2) {
+    .flex-split > * {
         padding-left: 50px;
+        width: 50%;
     }
+
+
 
     .flex-split .text-container {
         align-self: center;
@@ -395,4 +429,32 @@ button.navbar-toggler {
         width: 300px;
         height: 300px;
     }
+
+    .m-t-10 {
+        margin-top: 150px;
+    }
+
+    .image-container.order-switch {
+        order: 1
+    }
+    
+    .image-container.order-none {
+        order: 0
+    }
+
+    .title {
+        font-size: 4.2em;
+    }
+    
+    .title-container {
+        padding-top: 100px;
+    }
+
+    .flex-split-info p {
+        width: 50%;
+    }
+
+    /* .info-container {
+        padding-top: 0px;
+    } */
 }
