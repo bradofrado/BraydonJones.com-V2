@@ -138,6 +138,10 @@ img {
     padding: 30px 30px;
 }
 
+.margin-container {
+    margin: 0 30px;
+}
+
 .p-rl-10 {
     padding-left: 10%;
     padding-right: 10%;
@@ -377,9 +381,6 @@ button.navbar-toggler {
     margin-right: auto;
 }
 
-.p-l-none {
-    padding-left: 0px !important;
-}
 @media only screen and (min-width: 960px) {
     html {
         font-size: 16px;
@@ -452,6 +453,10 @@ button.navbar-toggler {
 
     .flex-split-info p {
         width: 50%;
+    }
+
+    .p-l-none {
+        padding-left: 0px !important;
     }
 
     /* .info-container {

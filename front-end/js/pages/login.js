@@ -124,7 +124,7 @@ class EditTemplateList extends Component {
     template = function() {
         return `<div>
                     <h2>{type}</h2>
-                    <div name="container" class="d-flex"></div>
+                    <div name="container" class="flex-grid"></div>
                 </div>`;
     }
 
