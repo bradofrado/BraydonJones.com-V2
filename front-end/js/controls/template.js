@@ -9,13 +9,22 @@ class Template extends Component {
     }
 
     template = function() {
+        const split = this.props.description.split('\n');
+
+        const ptags = split.reduce((prev, curr) => {
+            if (curr.trim().length) {
+                prev += '<p class="{bigFont}">' + curr + '</p>'
+            }
+
+            return prev;
+        }, '')
         return `<div class="flex-split container {class} {padding}">
                     <div class="image-container order-{switch}">
                         <img src="{image}">
                     </div>
                     <div class="info-container {padding}">
                         <h{size}>{name}</h{size}>
-                        <p class="{bigFont}">{description}</p>
+                        ${ptags}
                     </div>
                 </div>`;
     }
