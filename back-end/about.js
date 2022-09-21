@@ -3,15 +3,16 @@ const mongoose = require('mongoose');
 const uploader = require('./uploader.js');
 
 const router = express.Router();
-//const path = '/images/about';
+const path = '/images/about';
 
 const validUser = require('./users.js').validUser;
 
-const upload = uploader.none();
+const upload = uploader.upload(path).single('image');
 
 const aboutSchema = new mongoose.Schema({
     name: String,
     description: String,
+    image: String,
     isDeleted: {
         type: Boolean,
         default: false
@@ -64,6 +65,7 @@ router.post('/', validUser(['admin']), upload, async (req, res) => {
         const about = new About({
             name: req.body.name,
             description: req.body.description,
+            image: req.file ? path + '/' + req.file.filename : '',
         });
 
         await about.save();
@@ -92,10 +94,17 @@ router.put('/:id', validUser(['admin']), upload, async (req, res) => {
                 message: "Cannot find about with id " + req.params.id
             })
         }
+        const oldImage = about.image;
 
         about.name = req.body.name;
         about.description = req.body.description;
         
+        about.image = req.file ? path + '/' + req.file.filename : about.image;
+
+        if (about.image != oldImage) {
+            uploader.delete(oldImage);
+        }
+
         await about.save();
 
         res.send(about);
@@ -120,6 +129,7 @@ router.delete('/:id', validUser(['admin']), async (req, res) => {
 
         //Admins can do hard deletes. Other wise just mark it as deleted
         if (req.query.hard === 'true') {
+            uploader.delete(about.image);
             await about.delete();
             console.log('Hard deleted about ' + about._id);
         } else {
