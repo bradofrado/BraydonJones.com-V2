@@ -229,8 +229,7 @@ button.navbar-toggler {
 }
 
 .image-button-container {
-    width: 200px;
-    height: 200px;
+    max-width: 200px;
     margin: auto;
     position: relative;
     overflow: hidden;
@@ -427,8 +426,7 @@ button.navbar-toggler {
     }
 
     .image-button-container {
-        width: 300px;
-        height: 300px;
+        max-width: 300px;
     }
 
     .m-t-10 {
