@@ -204,7 +204,7 @@ class Profile extends Component {
         return `<div class="container">
                     <h1>Welcome, {firstname}</h1>
                     <a href="" @click="onLogout">Logout</a>
-                    <?ProfileBody name="body">
+                    <?ProfileBody name="body"/>
                 </div>`
     }
 
