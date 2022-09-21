@@ -1,5 +1,4 @@
 router.view('home', null, pages.home, '/');
-router.view('about', null, pages.about, '/about');
 router.view('projects', null, pages.projects, '/projects');
 router.view('project', null, pages.project, '/projects/{id}');
 router.view('experiences', null, pages.experiences, '/experience');

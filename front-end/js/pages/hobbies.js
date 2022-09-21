@@ -10,7 +10,7 @@ pages.hobbies = async function() {
     let hobbies = await getHobbies();
     
     return `<div class="container flex-grid">
-                ${hobbies.objects(`<ImageButton image="{image}" label="{label}" to="/hobbies/{_id}">`)}
+                ${hobbies.objects(`<ImageButton image="{image}" label="{label}" to="/hobbies/{_id}"/>`)}
             </div>`.component({ImageButton});
 }
 
@@ -23,5 +23,5 @@ pages.hobby = async function(options) {
 
     const hobby = await getHobby(options.id);
     
-    return `<Template image="{image}" name="{name}" description="{description}">`.component({Template}, hobby);
+    return `<Template image="{image}" name="{name}" description="{description}"/>`.component({Template}, hobby);
 }

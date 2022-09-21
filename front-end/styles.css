@@ -122,9 +122,12 @@ img {
     padding: 30px 30px;
 }
 
-.info-container {
-    /* background-color: #2D4180; */
+.background-primary {
     background-color: var(--color-primary);
+}
+
+.info-container.background-primary {
+    /* background-color: #2D4180; */
     color: var(--white);
 }
 
@@ -185,6 +188,18 @@ button.navbar-toggler {
 
 .bg-primary-dark {
     background-color: var(--color-primary);
+}
+
+.image-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+@media only screen and (min-width: 960px) {
+    .image-container {
+        flex-direction: row;
+    }
 }
 
 .image-button-container {
@@ -317,13 +332,23 @@ button.navbar-toggler {
     padding-top: 2px;
 }
 
+.linkedin-icon {
+    padding-top: 3px;
+}
+
 .footer-bottom {
     text-align: center;
     padding: 10px 0;
     font-size: .5rem;
 }
 
+.p-t-10 {
+    padding-top: 50px;
+}
 
+.m-t-10 {
+    margin-top: 150px;
+}
 @media only screen and (min-width: 960px) {
     html {
         font-size: 16px;

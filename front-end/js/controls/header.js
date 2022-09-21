@@ -76,7 +76,6 @@ controls.header = (function() {
 
         const _init = function () {
             createMenuTab("Home", "home", "/");
-            createMenuTab("About Me", "about", "/about")
             createMenuTab("Projects", "projects", "/projects");
             createMenuTab("Experience", "experience", "/experience");
             createMenuTab("Hobbies", "hobbies", "/hobbies");

@@ -10,6 +10,6 @@ pages.projects = async function() {
     let projects = await getProjects();
 
     return `<div class="container flex-grid">
-                ${projects.objects(`<ImageButton image="{image}" label="{label}" to="/projects/{_id}">`)}
+                ${projects.objects(`<ImageButton image="{image}" label="{label}" to="/projects/{_id}"/>`)}
             </div>`.component({ImageButton});
 }

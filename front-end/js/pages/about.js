@@ -32,13 +32,13 @@ pages.about = (function() {
                         <h1>My Story</h1>
                     </div>
                 </div>
-                <div class="info-container padding-container">
+                <div class="info-container padding-container background-primary">
                     <div>
                         <h1 class="info-title">I'm a student at Brigham Young University studying Computer Science.
                             I have many hobbies and passions.
                         </h1>
                     </div>
-                    ${info.objects(`<InfoContainer title="{name}" info="{description}">`)}
+                    ${info.objects(`<InfoContainer title="{name}" info="{description}"/>`)}
                 </div>`.component({InfoContainer})
     }
 })()

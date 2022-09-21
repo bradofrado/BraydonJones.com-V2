@@ -10,7 +10,7 @@ pages.experiences = async function() {
     let experience = await getExperience();
     
     return `<div class="container flex-grid">
-                ${experience.objects(`<ImageButton image="{image}" label="{label}" to="/experience/{_id}">`)}
+                ${experience.objects(`<ImageButton image="{image}" label="{label}" to="/experience/{_id}"/>`)}
             </div>`.component({ImageButton});
 }
 
@@ -23,5 +23,5 @@ pages.experience = async function(options) {
 
     const experience = await getExperience(options.id);
     
-    return `<Template image="{image}" name="{name}" description="{description}">`.component({Template}, experience);
+    return `<Template image="{image}" name="{name}" description="{description}"/>`.component({Template}, experience);
 }

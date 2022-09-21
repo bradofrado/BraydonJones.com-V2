@@ -15,5 +15,5 @@ pages.project = async function(options) {
         return '<div>Sorry the page you are looking for does not exist</div>'
     }
     
-    return `<Template image="{image}" name="{name}" description="{description}">`.component({Template}, project);
+    return `<Template image="{image}" name="{name}" description="{description}"/>`.component({Template}, project);
 }

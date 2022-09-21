@@ -3,8 +3,30 @@ class Component {
     
     constructor(props) {
         this.props = props;
-
         this.refs = {};
+
+        //If there are children, they will be given by {tag: `<div name="1">`, components: {1: Comp}}
+        if (this.props && this.props.children) {
+            const {tag, components} = this.props.children;
+            this.props.children = tag;
+            this.refs = components;
+        }
+    }
+
+    //This is the wrapper object for an uninstantiated class that.
+    //  it holds the information of where to mount it to the DOM
+    //  Mount and instantiate it by calling the .mount(props) method
+    MountableObject = function(name, comp, $parent) {
+        this.mount = function(props) {
+            //Initialize the component with the props
+            this[name] = typeof comp == 'function' ? new comp(props) : props;
+
+            //Put the component where it belongs in the dom
+            this[name].appendTo($parent);
+
+            //Get rid of the parent div where this component now belongs
+            $parent.children().unwrap();
+        }
     }
 
     //Binds the events (<button @click="onClick">)
@@ -53,21 +75,6 @@ class Component {
 
     //Any reference to a component object with a name attribute is delt with here
     #setClasses = function($element) {
-        //This is the wrapper object for an uninstantiated class that.
-        //  it holds the information of where to mount it to the DOM
-        //  Mount and instantiate it by calling the .mount(props) method
-        let mountableObject = function(name, comp, $parent) {
-            this.mount = function(props) {
-                //Initialize the component with the props
-                this[name] = new comp(props);
-
-                //Put the component where it belongs in the dom
-                this[name].appendTo($parent);
-
-                //Get rid of the parent div where this component now belongs
-                $parent.children().unwrap();
-            }
-        }
 
         //if we have made references to other classes or objects, then add those here
         for (let name in this.refs) {
@@ -87,8 +94,22 @@ class Component {
                 if ($parent.length == 0 && $element.attr('name') == name) {
                     $parent = $element;
                 }
-                this[_name] = new mountableObject(_name, this.refs[name], $parent);
+                this[_name] = new this.MountableObject(_name, this.refs[name], $parent);
                 this[_name].mount = this[_name].mount.bind(this);
+            }
+        }
+    }
+
+    #mountObjects = function($element) {
+        //Mount all of the references to objects
+        for (let name in this.refs) {
+            let _name = '$' + name;
+            let $parent = $element.find(`[name="${name}"]`);
+
+            if (this[_name].appendTo) {
+                this[_name].appendTo($parent);
+
+                $parent.children().unwrap();
             }
         }
     }
@@ -104,15 +125,7 @@ class Component {
     }
 
     init = function($element) {
-        //Mount all of the references to objects
-        for (let name in this.refs) {
-            let _name = '$' + name;
-            let $parent = $element.find(`[name="${name}"]`);
-
-            this[_name].appendTo($parent);
-
-            $parent.children().unwrap();
-        }
+        
     }
 
     appendTo = function($parent) {
@@ -121,8 +134,7 @@ class Component {
         this.#bindEvents($element[0]);
         this.#bindComponentEvents(this.refs);
         this.#setClasses($element);
-
-        
+        this.#mountObjects($element);
         
         let p = this.init($element);
         this.$root = $element;
@@ -133,4 +145,8 @@ class Component {
             $element.appendTo($parent);
         }
     }
+}
+
+const a = function(s) {
+
 }

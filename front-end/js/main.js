@@ -12,7 +12,7 @@ String.prototype.format = function() {
     let s = this;
 
     for (let i = 0; i < arguments.length; i++) {
-        s = s.replace(`{${i}}`, arguments[i])
+        s = s.replaceAll(`{${i}}`, arguments[i])
     }
 
     return s.toString();
@@ -51,17 +51,25 @@ String.prototype.component = function(comps, props, classes) {
     
     const matchComponent = function(compName) {
         const propsRegexString = `(@?\\w*)="([^"]*)"\\s*`;
-        const tagRegexString = `<(\\??)({0})\\s*(({1})*)\\s*\\/?>`;
+        const tagRegexString = `<(\\??)({0})\\s*(({1})*)\\s*\\/>`;
+        const tagChildrenRegexString = `<(\\??)({0})\\s*(({1})*)\\s*>\\s*(.*)\\s*<\\/(\\??)({0})\\s*>`;
 
-        const regex = new RegExp(tagRegexString.format(compName, propsRegexString), 'g');
+        const tagRegex = new RegExp(tagRegexString.format(compName, propsRegexString), 'g');
+        const tagChildrenRegex = new RegExp(tagChildrenRegexString.format(compName, propsRegexString), 'g');
         const propsRegex = new RegExp(propsRegexString, 'g');
 
-        const matches = regex.execAll(s);
+        let matches = tagRegex.execAll(s);
+        let singleTag = true;
+
+        if (matches.length == 0) {
+            matches = tagChildrenRegex.execAll(s);
+            singleTag = false;
+        }
 
         const results = [];
         for (let match of matches) {
             const isClass = match[1] !== "";
-            const name = match[2];
+            const tag = match[2];
             const propsString = match[3];
 
             props = {};
@@ -72,6 +80,28 @@ String.prototype.component = function(comps, props, classes) {
 
                 if (propValue) {
                     props[propName] = propValue;
+                }
+            }
+
+            if (!singleTag) {
+                let children = match[7];
+                let closeIsClass = match[8] !== "";
+                let endTag = match[9];
+
+                if (closeIsClass != isClass) {
+                    throw new Error("If tag starts (or doesn't start) with ?, it must end with the same");
+                }
+
+                if (tag !== endTag) {
+                    throw new Error("Start tag must match end tag");
+                }
+
+                const childComps = {}
+                const childString = children.component(comps, props, childComps);
+                
+                props.children = {
+                    tag: childString,
+                    components: childComps
                 }
             }
 
