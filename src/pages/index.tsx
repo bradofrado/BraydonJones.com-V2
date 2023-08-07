@@ -5,12 +5,13 @@ import {Navbar} from '~/utils/components/navigation/navbar';
 export default function Home() {
   return (
     <>
-      <ImagePanel image="/dave.jpeg" alt="Man on table" center>
-        <div className="flex gap-8 flex-col w-[50%] m-auto">
-          <Header level={1}>Hello, I&#39;m Braydon</Header>
+      <ImagePanel image="/braydon-shot.jpeg" alt="Man on table" center>
+      <Header level={1}>Hello, I&#39;m Braydon</Header>
           <p className="text-gray-500 text-xl">I&#39;m a software developer with many passions and hobbies 
             currently studying at Brigham Young University</p>
-        </div>
+      </ImagePanel>
+      <ImagePanel image="/dave.jpeg" alt="Dave Grow" center reverse>
+        <Header level={1}>Skills</Header>
       </ImagePanel>
     </>
   );
