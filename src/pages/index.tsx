@@ -1,8 +1,4 @@
-import dayjs from "dayjs";
-import Header from "~/utils/components/base/header";
 import { ExperienceDisplay } from "~/utils/components/experience/experience-list";
-import { ImagePanel } from "~/utils/components/image-panel";
-import {Navbar} from '~/utils/components/navigation/navbar';
 import { ProjectDisplay } from "~/utils/components/projects/project-list";
 
 
