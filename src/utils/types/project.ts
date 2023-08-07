@@ -1,8 +1,7 @@
-export interface ExperienceItem {
-    dates: DateRange,
+export interface ProjectItem {
     title: string,
-    company: string,
     description: string,
     tags: string[],
+    image: string,
     link: string
-  }
+}

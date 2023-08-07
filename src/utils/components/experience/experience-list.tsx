@@ -24,7 +24,8 @@ export const ExperienceDisplay = () => {
           company: 'Lucid Software',
           title: 'Software Engineer Intern',
           description: 'Lead teams of people',
-          tags: ['CSS', 'Angular', 'Typescript']
+          tags: ['CSS', 'Angular', 'Typescript'],
+          link: 'https://lucid.co'
         }
       ]
     return <>
