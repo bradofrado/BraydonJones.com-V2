@@ -1,3 +1,4 @@
+import { AboutDisplay } from "~/utils/components/info-section/about/about-display";
 import { ExperienceDisplay } from "~/utils/components/info-section/experience/experience-list";
 import { ProjectDisplay } from "~/utils/components/info-section/projects/project-list";
 
@@ -7,9 +8,7 @@ export default function Home() {
     <>
       <div className="flex flex-col gap-16">
         <div>
-          <p>In 2014 when I was 14, I read my first book on programming and fell in love. Since then, I&#39;ve worked on 
-            projects ranging from Unity 3D games to websites made completely from scratch.
-          </p>
+          <AboutDisplay/>
         </div>
         <div className="">
           <ExperienceDisplay/>
