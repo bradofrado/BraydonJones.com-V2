@@ -1,5 +1,5 @@
-import { ExperienceDisplay } from "~/utils/components/experience/experience-list";
-import { ProjectDisplay } from "~/utils/components/projects/project-list";
+import { ExperienceDisplay } from "~/utils/components/info-section/experience/experience-list";
+import { ProjectDisplay } from "~/utils/components/info-section/projects/project-list";
 
 
 export default function Home() {

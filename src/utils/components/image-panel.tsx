@@ -15,7 +15,7 @@ export const ImagePanel = ({image, alt, reverse=false, center=false, children}: 
                 children}
             </div>
             <div className="flex-1">
-                <Image className="max-w-[50%] mx-auto" src={image} alt={alt}/>
+                <img className="max-w-[50%] mx-auto" src={image} alt={alt}/>
             </div>
         </div>
     </>
