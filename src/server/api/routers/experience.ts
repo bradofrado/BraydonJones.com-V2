@@ -19,5 +19,60 @@ const experienceItems: ExperienceItem[] = [
         description: 'Lead teams of people',
         tags: ['CSS', 'Angular', 'Typescript'],
         link: 'https://lucid.co'
-    }
+    },
+    {
+        dates: {
+        start: new Date(),
+        end: null
+        },
+        company: 'Lucid Software',
+        title: 'Software Engineer Intern',
+        description: 'Lead teams of people',
+        tags: ['CSS', 'Angular', 'Typescript'],
+        link: 'https://lucid.co'
+    },
+    {
+        dates: {
+        start: new Date(),
+        end: null
+        },
+        company: 'Lucid Software',
+        title: 'Software Engineer Intern',
+        description: 'Lead teams of people',
+        tags: ['CSS', 'Angular', 'Typescript'],
+        link: 'https://lucid.co'
+    },
+    {
+        dates: {
+        start: new Date(),
+        end: null
+        },
+        company: 'Lucid Software',
+        title: 'Software Engineer Intern',
+        description: 'Lead teams of people',
+        tags: ['CSS', 'Angular', 'Typescript'],
+        link: 'https://lucid.co'
+    },
+    {
+        dates: {
+        start: new Date(),
+        end: null
+        },
+        company: 'Lucid Software',
+        title: 'Software Engineer Intern',
+        description: 'Lead teams of people',
+        tags: ['CSS', 'Angular', 'Typescript'],
+        link: 'https://lucid.co'
+    },
+    {
+        dates: {
+        start: new Date(),
+        end: null
+        },
+        company: 'Lucid Software',
+        title: 'Software Engineer Intern',
+        description: 'Lead teams of people',
+        tags: ['CSS', 'Angular', 'Typescript'],
+        link: 'https://lucid.co'
+    },
 ]

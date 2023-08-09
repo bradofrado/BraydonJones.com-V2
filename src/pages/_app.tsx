@@ -21,9 +21,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="mx-auto min-h-screen max-w-screen-xl px-6 py-12 font-sans md:px-12 md:py-20 lg:px-24 lg:py-0">
-        <SideNav className="lg:justify-between lg:py-24 min-h-screen">
-          <Component {...pageProps} />
-        </SideNav>
+        <Component {...pageProps} />
       </main>
     </SessionProvider>
   );
