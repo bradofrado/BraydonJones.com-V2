@@ -8,7 +8,7 @@ export type ProjectCardProps = {
 }
 export const ProjectCard = ({item}: ProjectCardProps) => {
     return <>
-        <BaseCard title={item.title} description={item.description} link={item.link} tags={item.tags}>
+        <BaseCard title={item.title} description={item.description} link={item.link} tags={item.tags} attachments={item.attachments}>
             <img src={item.image} alt="alt"/>
         </BaseCard>
     </>
