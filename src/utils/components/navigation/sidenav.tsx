@@ -66,9 +66,9 @@ export const SideNavComponent = ({titleContent, navItems, className}: SideNavCom
                     {titleContent}
                     <ul className="mt-10 flex flex-col gap-4">
                         {navItems.map((item, i)=> {
-                            const activeClass = activeId == item.id ? 'text-primary dark:text-primary': 'text-gray-900'
+                            const activeClass = activeId == item.id ? '!text-primary dark:text-primary': 'text-gray-900'
                             return <li key={i}>
-                                <a href={`#${item.id}`} className={`${activeClass} rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-primary md:p-0 dark:text-white md:dark:hover:text-primary dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent`}
+                                <a href={`#${item.id}`} className={`rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-primary md:p-0 dark:text-white md:dark:hover:text-primary dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent ${activeClass}`}
                                     onClick={(e) => {e.preventDefault(); onNavItemClick(item)}}>
                                     {item.label}
                                 </a>
