@@ -4,7 +4,7 @@ import { createTRPCRouter, publicProcedure } from "../trpc";
 export const experienceRouter = createTRPCRouter({
     getExperienceItems: publicProcedure
         .query(({ctx}) => {
-            return experienceItems;
+            return experienceItems.sort((a, b) => b.dates.start.getTime() - a.dates.start.getTime());
         })
 });
 

@@ -6,6 +6,7 @@ import { ExperienceDisplay } from "../info-section/experience/experience-list"
 import { ProjectDisplay } from "../info-section/projects/project-list"
 import { ToggleSwitch } from "../base/toggle-switch"
 import { DarkModelToggle } from "../dark-mode/dark-mode-toggle"
+import { useGetExperienceItems } from "~/utils/services/experience"
 
 interface NavItem {
     label: string,
@@ -112,6 +113,14 @@ export type SideNavProps = {
     className?: string
 }
 export const SideNav = ({className}: SideNavProps) => {
+    const query = useGetExperienceItems();
+    if (query.isError || query.isLoading) {
+        return <></>
+    }
+
+    const firstItem = query.data[0];
+    if (!firstItem) return <></>
+
     const items: NavItem[] = [
         {
             label: 'About',
@@ -133,7 +142,8 @@ export const SideNav = ({className}: SideNavProps) => {
         <SideNavComponent className={className} navItems={items} otherItems={[<DarkModelToggle key={0}/>]}>
             <div className="flex flex-col gap-4">
                 <Header level={1}>Braydon Jones</Header>
-                <Header level={3}>Software Engineer Intern at Lucid</Header>
+                <Header level={3}>{firstItem.title} at {firstItem.company}</Header>
+                <img className="rounded-full w-52 h-52 object-cover object-left" src="/me-and-wifey.jpeg"/>
                 <p className="text-l max-w-xs">I&#39;m a software developer with many passions and hobbies 
                 currently studying at Brigham Young University</p>
             </div>
