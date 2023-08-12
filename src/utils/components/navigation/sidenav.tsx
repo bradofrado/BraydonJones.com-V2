@@ -4,18 +4,21 @@ import { Footer } from "./footer"
 import { AboutDisplay } from "../info-section/about/about-display"
 import { ExperienceDisplay } from "../info-section/experience/experience-list"
 import { ProjectDisplay } from "../info-section/projects/project-list"
+import { ToggleSwitch } from "../base/toggle-switch"
+import { DarkModelToggle } from "../dark-mode/dark-mode-toggle"
 
 interface NavItem {
     label: string,
     id: string,
     content: React.ReactNode
 }
+
 export type SideNavComponentProps = {
-    titleContent: React.ReactNode,
     navItems: NavItem[],
+    otherItems?: React.ReactNode[],
     className?: string
-}
-export const SideNavComponent = ({titleContent, navItems, className}: SideNavComponentProps) => {
+} & React.PropsWithChildren
+export const SideNavComponent = ({children, navItems, otherItems, className}: SideNavComponentProps) => {
     const [activeId, setActiveId] = useState<string | undefined>();
     const refs = navItems.reduce<Record<string, React.RefObject<HTMLSelectElement>>>((refsObj, item) => {
         refsObj[item.id] = createRef<HTMLSelectElement>();
@@ -63,7 +66,7 @@ export const SideNavComponent = ({titleContent, navItems, className}: SideNavCom
         <div className={`flex flex-col md:flex-row ${className || ''}`}>
             <div className="flex-1 flex flex-col md:sticky max-h-screen md:py-24 top-0">
                 <div className="flex-1">
-                    {titleContent}
+                    {children}
                     <ul className="mt-10 flex flex-col gap-4">
                         {navItems.map((item, i)=> {
                             const activeClass = activeId == item.id ? '!text-primary dark:text-primary': 'text-gray-900'
@@ -74,6 +77,9 @@ export const SideNavComponent = ({titleContent, navItems, className}: SideNavCom
                                 </a>
                             </li>
                         })}
+                        {otherItems && otherItems.map((item, i) => <li key={i}>
+                            {item}
+                        </li>)}
                     </ul>
                 </div>
                 <Footer className="hidden md:block"/>
@@ -124,13 +130,13 @@ export const SideNav = ({className}: SideNavProps) => {
         }
     ]
     return <>
-        <SideNavComponent className={className} navItems={items} titleContent={<>
-          <div className="flex flex-col gap-4">
-            <Header level={1}>Braydon Jones</Header>
-            <Header level={3}>Software Engineer Intern at Lucid</Header>
-            <p className="text-l max-w-xs">I&#39;m a software developer with many passions and hobbies 
-            currently studying at Brigham Young University</p>
-          </div>
-        </>}/>
+        <SideNavComponent className={className} navItems={items} otherItems={[<DarkModelToggle key={0}/>]}>
+            <div className="flex flex-col gap-4">
+                <Header level={1}>Braydon Jones</Header>
+                <Header level={3}>Software Engineer Intern at Lucid</Header>
+                <p className="text-l max-w-xs">I&#39;m a software developer with many passions and hobbies 
+                currently studying at Brigham Young University</p>
+            </div>
+        </SideNavComponent>
     </>
 }
