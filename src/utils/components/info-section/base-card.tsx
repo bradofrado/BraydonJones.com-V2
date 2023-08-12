@@ -9,7 +9,7 @@ export type BaseCardProps = {
 } & React.PropsWithChildren
 export const BaseCard = ({title, description, link, tags, children}: BaseCardProps) => {
     return <>
-        <a className="flex cursor-pointer hover:bg-gray-200 p-5 rounded-md" href={link} target="_blank">
+        <a className="flex cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-800 p-5 rounded-md" href={link} target="_blank">
             <div className="mr-5 w-32">
                 {children}
             </div>

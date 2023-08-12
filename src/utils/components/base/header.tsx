@@ -33,7 +33,7 @@ const Header = ({children, className, level, ...rest}: HeaderProps): JSX.Element
 	}
 	const Component = headerMapping[level];
 	return (
-		<Component className={`${size[Component]} font-bold leading-9 tracking-tight text-gray-900 ${className || ''}`} {...rest}>
+		<Component className={`${size[Component]} font-bold leading-9 tracking-tight text-gray-900 dark:text-gray-200 ${className || ''}`} {...rest}>
 			{children}
 		</Component>
 	);

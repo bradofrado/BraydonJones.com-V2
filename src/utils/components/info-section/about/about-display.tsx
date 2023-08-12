@@ -7,7 +7,7 @@ export const AboutDisplay = () => {
     }
     const aboutItem = query.data;
     return <>
-        <p>
+        <p className="">
             {aboutItem.description}
         </p>
     </>

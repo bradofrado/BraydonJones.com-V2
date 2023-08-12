@@ -9,7 +9,7 @@ export const IconLink = ({icon, href}: IconLinkProps) => {
     const Icon = icon;
     return <>
         <Link href={href} target="_blank">
-            <Icon className="w-6 h-6"/>
+            <Icon className="w-6 h-6 hover:!fill-slate-500"/>
         </Link>
     </>
 }

@@ -7,11 +7,12 @@ export default {
       colors: {
         primary: {
           'light': '#5a63bf',
-          DEFAULT: '#404789',
+          DEFAULT: '#1d4ed8',
           'dark': '#363c6e',
         }
       }
     },
   },
+  darkMode: 'class',
   plugins: [],
 } satisfies Config;
