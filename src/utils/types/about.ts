@@ -1,3 +1,3 @@
 export interface AboutItem {
-    description: string
+    descriptions: string[]
 }

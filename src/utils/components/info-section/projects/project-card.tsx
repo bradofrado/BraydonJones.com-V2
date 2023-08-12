@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { ProjectItem } from "~/utils/types/project"
 import { BaseCard } from "../base-card"
 import Image from "next/image"

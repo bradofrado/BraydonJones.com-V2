@@ -7,8 +7,10 @@ export const AboutDisplay = () => {
     }
     const aboutItem = query.data;
     return <>
-        <p className="">
-            {aboutItem.description}
-        </p>
+        <div className="flex flex-col gap-4">
+            {aboutItem.descriptions.map((description, i) => <p key={i}>
+                {description}
+            </p>)}
+        </div>
     </>
 }
