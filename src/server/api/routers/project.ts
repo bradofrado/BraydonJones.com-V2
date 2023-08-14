@@ -12,7 +12,7 @@ export const projectItems: ProjectItem[] = [
     {
       title: 'Running Sons',
       description: 'Online shopping/events website for the band Running Sons. I am the keyboardist in this band.',
-      tags: ['Vue', 'CSS', 'Node.js', 'Express'],
+      tags: ['Vue', 'CSS', 'Node.js', 'Express', 'MongoDB'],
       attachments: [
         {
             label: 'Github',
@@ -25,7 +25,7 @@ export const projectItems: ProjectItem[] = [
     {
         title: 'Witnesses of the Restoration',
         description: 'Website highlighting important events in the Restoration of the Church of Jesus Christ of Latter-day Saints categorized in a singular timeline.',
-        tags: ['React', 'Typescript', 'Next.js', 'Tailwind CSS'],
+        tags: ['React', 'Typescript', 'Next.js', 'Tailwind CSS', 'Prisma', 'SQL'],
         attachments: [
             {
                 label: 'Github',
@@ -38,7 +38,7 @@ export const projectItems: ProjectItem[] = [
     {
         title: 'Sowards Suites',
         description: 'Webiste storing a centralized location for booking rooms in the Sowards household, alliviating the burden put on Momma Llamma',
-        tags: ['Vue', 'CSS', 'Node.js', 'Express'],
+        tags: ['Vue', 'CSS', 'Node.js', 'Express', 'MongoDB'],
         attachments: [
             {
                 label: 'Github',
@@ -64,7 +64,7 @@ export const projectItems: ProjectItem[] = [
     {
         title: 'Broski',
         description: 'BYU Sandbox 2022 hackathon project. Provides  a community, air bnb like experience to selling and renting outdoor equipment.',
-        tags: ['React', 'Javascript', 'Node.js', 'Express'],
+        tags: ['React', 'Javascript', 'Node.js', 'Express', 'MongoDB'],
         attachments: [
             {
                 label: 'Github',
@@ -90,7 +90,7 @@ export const projectItems: ProjectItem[] = [
     {
         title: 'Other Projects',
         description: 'Check out some of the other projects I worked on in middle school and high school. Included is a sudoku solver/game, family economy app for managing the family\'s chores and allowance, and a \'Virus\'--use at your own risk :)',
-        tags: ['Unity', 'Windows Forms', 'C#'],
+        tags: ['Unity', 'Windows Forms', 'C#', 'SQL'],
         attachments: [],
         image: '/unity.png',
         link: 'https://drive.google.com/drive/folders/1jsHOmqPAWp1g-KB0P568hM5io7kOh0s8?usp=sharing'
