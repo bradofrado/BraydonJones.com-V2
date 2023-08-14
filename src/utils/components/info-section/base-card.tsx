@@ -13,7 +13,7 @@ export type BaseCardProps = {
 export const BaseCard = ({title, description, link, tags, attachments, children}: BaseCardProps) => {
     return <>
         <a className="flex cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-800 p-5 rounded-md flex-col md:flex-row" href={link} target="_blank">
-            <div className="mr-5 w-32 mb-2 md:mb-0">
+            <div className="mr-5 w-32 h-32 mb-2 md:mb-0">
                 {children}
             </div>
             <div className="flex gap-2 flex-col flex-1">

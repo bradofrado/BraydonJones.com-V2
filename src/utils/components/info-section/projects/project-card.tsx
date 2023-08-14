@@ -1,7 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import { ProjectItem } from "~/utils/types/project"
 import { BaseCard } from "../base-card"
-import Image from "next/image"
 
 export type ProjectCardProps = {
     item: ProjectItem
@@ -9,7 +8,7 @@ export type ProjectCardProps = {
 export const ProjectCard = ({item}: ProjectCardProps) => {
     return <>
         <BaseCard title={item.title} description={item.description} link={item.link} tags={item.tags} attachments={item.attachments}>
-            <img src={item.image} alt="alt"/>
+            <img className="w-full h-full object-cover" src={item.image} alt="alt"/>
         </BaseCard>
     </>
 }
