@@ -1,10 +1,5 @@
-import { AttachmentItem } from "./base"
+import { BaseItem } from "./base"
 
-export interface ProjectItem {
-    title: string,
-    description: string,
-    tags: string[],
-    attachments: AttachmentItem[],
+export interface ProjectItem extends BaseItem {
     image: string,
-    link: string
 }

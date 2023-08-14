@@ -1,11 +1,6 @@
-import { AttachmentItem } from "./base"
+import { AttachmentItem, BaseItem } from "./base"
 
-export interface ExperienceItem {
+export interface ExperienceItem extends BaseItem {
     dates: DateRange,
-    title: string,
     company: string,
-    description: string,
-    tags: string[],
-    attachments: AttachmentItem[],
-    link: string
   }

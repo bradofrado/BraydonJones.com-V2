@@ -8,7 +8,7 @@ export const projectRouter = createTRPCRouter({
         })
 })
 
-const projectItems: ProjectItem[] = [
+export const projectItems: ProjectItem[] = [
     {
       title: 'Running Sons',
       description: 'Online shopping/events website for the band Running Sons. I am the keyboardist in this band.',

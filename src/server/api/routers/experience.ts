@@ -8,7 +8,7 @@ export const experienceRouter = createTRPCRouter({
         })
 });
 
-const experienceItems: ExperienceItem[] = [
+export const experienceItems: ExperienceItem[] = [
     {
         dates: {
             start: new Date(2023, 4, 15),

@@ -1,10 +1,26 @@
 import { AboutItem } from "~/utils/types/about";
 import { createTRPCRouter, publicProcedure } from "../trpc";
+import { experienceItems } from "./experience";
+import { projectItems } from "./project";
+import { BaseItem } from "~/utils/types/base";
 
 export const aboutRouter = createTRPCRouter({
     getAbout: publicProcedure
         .query(({ctx}) => {
             return getAboutItem();
+        }),
+    getSkills: publicProcedure
+        .query(({ctx}) => {
+            const reducer = (prev: Set<string>, curr: BaseItem): Set<string> => {
+                for (const tag of curr.tags) {
+                    prev.add(tag);
+                }
+
+                return prev;
+            }
+            const skills = new Set([...experienceItems.reduce(reducer, new Set()), ...projectItems.reduce(reducer, new Set())]);
+
+            return Array.from(skills).sort((a, b) => a.localeCompare(b));
         })
 });
 

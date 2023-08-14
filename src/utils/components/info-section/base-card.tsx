@@ -1,15 +1,10 @@
 import Header from '~/utils/components/base/header';
 import {Pill} from '~/utils/components/base/pill';
 import { LinkItem } from '../base/link-item';
-import { AttachmentItem } from '~/utils/types/base';
+import { AttachmentItem, BaseItem } from '~/utils/types/base';
+import { TagList } from './tags-list';
 
-export type BaseCardProps = {
-    title: string,
-    description: string,
-    link: string,
-    tags: string[],
-    attachments: AttachmentItem[]
-} & React.PropsWithChildren
+export type BaseCardProps = BaseItem & React.PropsWithChildren
 export const BaseCard = ({title, description, link, tags, attachments, children}: BaseCardProps) => {
     return <>
         <a className="flex cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-800 p-5 rounded-md flex-col md:flex-row" href={link} target="_blank">
@@ -24,9 +19,7 @@ export const BaseCard = ({title, description, link, tags, attachments, children}
                         <LinkItem label={attachment.label} link={attachment.link}/>
                     </li>)}
                 </ul>}
-                <ul className="flex flex-wrap">
-                    {tags.map((tag, i) => <Pill key={i} className="mr-1.5 mt-2">{tag}</Pill>)}
-                </ul>
+                <TagList tags={tags}/>
             </div>
         </a>
     </>
