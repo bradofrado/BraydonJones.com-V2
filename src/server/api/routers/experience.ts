@@ -34,7 +34,7 @@ export const experienceItems: ExperienceItem[] = [
         company: 'Mapline',
         title: 'Junior Full Stack Developer',
         description: 'Completed 74 user stories as the only part time developer in 2022. Ranked top 3 among 25+ developers in new features added.',
-        tags: ['Javascript', 'Jquery', 'CSS', 'SQL', 'C#', 'Subversion'],
+        tags: ['HTML', 'Javascript', 'Jquery', 'CSS', 'SQL', 'C#', 'Subversion'],
         attachments: [
             // {
             //     label: 'Dynamic Messaging',
@@ -55,7 +55,7 @@ export const experienceItems: ExperienceItem[] = [
         company: 'AJs Palette',
         title: 'Full Stack Developer',
         description: 'Created from scratch custom artwork website AJsPalette.com. Allows customers the ability to be their own artists creating work using AJ\'s Palette.',
-        tags: ['React', 'CSS', 'C#', 'Azure DevOps'],
+        tags: ['React', 'HTML', 'CSS', 'C#', 'Azure DevOps'],
         attachments: [],
         link: 'https://ajspalette.com'
     },

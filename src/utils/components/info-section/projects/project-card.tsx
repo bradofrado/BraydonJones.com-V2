@@ -8,7 +8,9 @@ export type ProjectCardProps = {
 export const ProjectCard = ({item}: ProjectCardProps) => {
     return <>
         <BaseCard title={item.title} description={item.description} link={item.link} tags={item.tags} attachments={item.attachments}>
-            <img className="w-full h-full object-cover" src={item.image} alt="alt"/>
+            <div className="w-32 h-32">
+                <img className="w-full h-full object-cover" src={item.image} alt="alt"/>
+            </div>
         </BaseCard>
     </>
 }
