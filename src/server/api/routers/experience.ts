@@ -12,7 +12,7 @@ export const experienceItems: ExperienceItem[] = [
     {
         dates: {
             start: new Date(2023, 4, 15),
-            end: null
+            end: new Date(2023, 7, 31)
         },
         company: 'Lucid Software',
         title: 'Software Engineer Intern',

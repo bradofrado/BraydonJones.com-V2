@@ -138,11 +138,19 @@ export const SideNav = ({className}: SideNavProps) => {
             content: <ProjectDisplay/>
         }
     ]
+
+	const getSubtitle = () => {
+		if (firstItem.dates.end == null) {
+			return `${firstItem.title} at ${firstItem.company}`
+		}
+
+		return 'Software Engineer';
+	}
     return <>
         <SideNavComponent className={className} navItems={items} otherItems={[<DarkModelToggle key={0}/>]}>
             <div className="flex flex-col gap-4">
                 <Header level={1}>Braydon Jones</Header>
-                <Header level={3}>{firstItem.title} at {firstItem.company}</Header>
+                <Header level={3}>{getSubtitle()}</Header>
                 <img className="rounded-full w-52 h-52 object-cover object-left" src="/me-and-wifey.jpeg"/>
                 <p className="text-l max-w-xs">I&#39;m a software developer with many passions and hobbies 
                 currently studying at Brigham Young University</p>
