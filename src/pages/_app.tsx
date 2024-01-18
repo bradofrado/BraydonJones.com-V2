@@ -10,6 +10,8 @@ import { SideNav } from "~/utils/components/navigation/sidenav";
 import Header from '~/utils/components/base/header';
 import { useState } from "react";
 import { DarkModeProvider } from "~/utils/components/dark-mode/dark-mode-context";
+import Script from "next/script";
+
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
@@ -19,7 +21,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
   const onPointerMove = (e: React.PointerEvent) => {
     setPos({x: e.clientX, y: e.clientY});
   }
-  return (
+  return (<>
     <SessionProvider session={session}>
       <Head>
         <title>Braydon Jones</title>
@@ -36,7 +38,16 @@ const MyApp: AppType<{ session: Session | null }> = ({
           </main>
         </div>
       </DarkModeProvider>
+      <Script id="harmony-id">
+          {`harmony={load:function(e){const r=document.createElement("script");r.src="https://unpkg.com/harmony-ai-editor";r.addEventListener('load',function(){window.HarmonyProvider({repositoryId:e});});document.body.appendChild(r);}}
+    harmony.load('38e7e551-af74-4326-b5d3-466b7d7d1670');`}
+      </Script>
+        {/* <Script src="bundle.js"></Script>
+        <Script>
+          {`window.HarmonyProvider({repositoryId:'clrf5dxjg000169tj4bwcrjj0'});`}
+        </Script> */}
     </SessionProvider>
+    </>
   );
 };
 
