@@ -38,13 +38,18 @@ const MyApp: AppType<{ session: Session | null }> = ({
           </main>
         </div>
       </DarkModeProvider>
-      <Script id="harmony-id">
+      {/* <Script id="harmony-id">
           {`harmony={load:function(e){const r=document.createElement("script");r.src="https://unpkg.com/harmony-ai-editor";r.addEventListener('load',function(){window.HarmonyProvider({repositoryId:e});});document.body.appendChild(r);}}
     harmony.load('38e7e551-af74-4326-b5d3-466b7d7d1670');`}
-      </Script>
-        {/* <Script src="bundle.js"></Script>
+      </Script> */}
+        {/* <Script id="harmony-tag" src="bundle.js"></Script>
         <Script>
-          {`window.HarmonyProvider({repositoryId:'clrf5dxjg000169tj4bwcrjj0'});`}
+          {`(function() {
+              const script = document.getElementById('harmony-tag');
+              script.addEventListener('load', function() {
+                window.HarmonyProvider({repositoryId:'a119bc6b-c088-4e66-80b6-ee71e5c590dc'});
+              });
+            })()`}
         </Script> */}
     </SessionProvider>
     </>

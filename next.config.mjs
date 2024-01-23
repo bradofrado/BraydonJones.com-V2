@@ -8,6 +8,12 @@ await import("./src/env.mjs");
 const config = {
   reactStrictMode: true,
 
+  experimental: {
+		// Only run the plugin in development mode
+		swcPlugins: process.env.NODE_ENV !== 'production' ? [
+			['harmony-ai-plugin', {rootDir: new URL('.', import.meta.url).pathname}]
+		] : []
+	},
   /**
    * If you have `experimental: { appDir: true }` set, then you must comment the below `i18n` config
    * out.

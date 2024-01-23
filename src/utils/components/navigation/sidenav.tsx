@@ -152,7 +152,7 @@ export const SideNav = ({className}: SideNavProps) => {
                 <Header level={1}>Braydon Jones</Header>
                 <Header level={3}>{getSubtitle()}</Header>
                 <img className="rounded-full w-52 h-52 object-cover object-left" src="/me-and-wifey.jpeg"/>
-                <p className="text-l max-w-xs">I&#39;m a software developer with many passions and hobbies 
+                <p className="max-w-xs">I&#39;m a software developer with many passions and hobbies 
                 currently studying at Brigham Young University</p>
             </div>
         </SideNavComponent>
