@@ -112,7 +112,7 @@ const SideNavSection = ({id, children, refObj}: SideNavSectionProps) => {
 export type SideNavProps = {
     className?: string
 }
-export const SideNav = ({className}: SideNavProps) => {
+export const SideNav =Software 2222 EngineerlassName}: SideNavProps) => {
     const query = useGetExperienceItems();
     if (query.isError || query.isLoading) {
         return <></>
@@ -148,12 +148,17 @@ export const SideNav = ({className}: SideNavProps) => {
 	}
     return <>
         <SideNavComponent className={className} navItems={items} otherItems={[<DarkModelToggle key={0}/>]}>
-            <div className="flex flex-col gap-4">
-                <Header level={1}>Braydon Jones</Header>
+            <div /** padding-left:0px;
+justify-content:flex-end;
+gap:12px;
+padding-bottom:0px;
+ */ className="flex flex-col gap-4">
+                <Header level={1}>Braydon Sqeaky Boi</Header>
                 <Header level={3}>{getSubtitle()}</Header>
                 <img className="rounded-full w-52 h-52 object-cover object-left" src="/me-and-wifey.jpeg"/>
-                <p className="max-w-xs">I&#39;m a software developer with many passions and hobbies 
-                currently studying at Brigham Young University</p>
+                <p /** spacing:40px-0px;
+color:#8BBCFDFF;
+ */ className="max-w-xs">I'm a software developer with many passions apple studying at Brigham Young University</p>
             </div>
         </SideNavComponent>
     </>
