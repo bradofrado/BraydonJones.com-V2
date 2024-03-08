@@ -11,6 +11,8 @@ import Header from '~/utils/components/base/header';
 import { useState } from "react";
 import { DarkModeProvider } from "~/utils/components/dark-mode/dark-mode-context";
 import Script from "next/script";
+import {HarmonySetup} from 'harmony-ai-editor';
+import { fonts } from "~/utils/fonts";
 
 
 const MyApp: AppType<{ session: Session | null }> = ({
@@ -38,6 +40,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
           </main>
         </div>
       </DarkModeProvider>
+      <HarmonySetup repositoryId="5f296668-b002-45d7-89e4-fb303e7e22d6" fonts={fonts}/>
       {/* <Script id="harmony-id">
           {`harmony={load:function(e){const r=document.createElement("script");r.src="https://unpkg.com/harmony-ai-editor";r.addEventListener('load',function(){window.HarmonyProvider({repositoryId:e});});document.body.appendChild(r);}}
     harmony.load('38e7e551-af74-4326-b5d3-466b7d7d1670');`}
