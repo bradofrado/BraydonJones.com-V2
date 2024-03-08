@@ -19,13 +19,14 @@
     "@trpc/react-query": "^10.26.0",
     "@trpc/server": "^10.26.0",
     "dayjs": "^1.11.9",
-    "harmony-ai-plugin": "^0.1.4",
-    "next": "^13.4.2",
-    "next-auth": "^4.22.1",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
+    "harmony-ai-editor": "^0.12.6",
+    "harmony-ai-plugin": "^0.2.1",
+    "next": "^14.2.1",
+    "next-auth": "^4.24.7",
+    "react": "^18",
+    "react-dom": "^18",
     "superjson": "1.12.2",
-    "zod": "^3.21.4"
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@types/eslint": "^8.37.0",
