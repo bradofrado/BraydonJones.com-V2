@@ -4,11 +4,52 @@ import { createTRPCRouter, publicProcedure } from "../trpc";
 export const experienceRouter = createTRPCRouter({
     getExperienceItems: publicProcedure
         .query(({ctx}) => {
-            return experienceItems.sort((a, b) => b.dates.start.getTime() - a.dates.start.getTime());
+            return experienceItems.sort((a, b) => {
+                if (a.dates.end === null) return -1
+                if (b.dates.end === null) return 1
+                return b.dates.start.getTime() - a.dates.start.getTime()
+        });
         })
 });
 
 export const experienceItems: ExperienceItem[] = [
+    {
+        dates: {
+            start: new Date(2024, 0, 1),
+            end: null
+        },
+        company: 'Harmony UI',
+        title: 'Co-founder and CTO',
+        description: 'Founded a business that allows designers to make UI edits to a code-based application, shipping changes without a developer. Solely create the end-to-end system that goes from a no-code update to the respective change in a dynamic codebase. Play a significant role in making strategic business decisions, talking to investors, and onboarding customers.',
+        tags: ['NextJS', 'React', 'Typescript', 'NPM', 'Chrome Extension', 'Fly.io', 'Postgres', 'Prisma', 'Vercel'],
+        attachments: [],
+        link: 'https://harmonyui.app'
+    },
+    {
+        dates: {
+            start: new Date(2024, 4, 1),
+            end: new Date(2024, 7, 1)
+        },
+        company: 'Pattern',
+        title: 'Software Engineer Intern',
+        description: 'Implement Content Brief PDF download including creating a new AWS ECS service and PDF generation repository. Play a significant role in the migration of Pattern’s product PXM from older technology to NextJs and NX monorepo with 132 pull requests. Update PXM’s UI to match the styling and functionality of other Pattern products.',
+        tags: ['React', 'Typescript', 'NextJS', 'NX', 'AWS ECS', ],
+        attachments: [],
+        link: 'https://amplifi.io/'
+    },
+    {
+        dates: {
+            start: new Date(2023, 7, 1),
+            end: new Date(2024, 0, 1)
+        },
+        company: 'Nexa (Sandbox Cohort 03)',
+        title: 'Co-Founder',
+        description: 'Built software that centers around streaming lining businesses to businesses communication. Learned new frameworks and coding stacks to iterate quickly on an MVP. Talked with target customers to develop new insight into the problem of information sharing among businesses.',
+        tags: ['React', 'Typescript', 'NextJS', 'Postgres', 'Prisma', 'TurboRepo'],
+        attachments: [
+        ],
+        link: 'https://sandbox-project-livid.vercel.app/'
+    },
     {
         dates: {
             start: new Date(2023, 4, 15),

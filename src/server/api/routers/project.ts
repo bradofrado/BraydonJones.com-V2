@@ -10,6 +10,32 @@ export const projectRouter = createTRPCRouter({
 
 export const projectItems: ProjectItem[] = [
     {
+        title: 'plinq',
+        description: 'Simple budgeting app for couples with little time.',
+        tags: ['React', 'Typescript', 'Next.js', 'Tailwind CSS', 'Prisma', 'Postgres'],
+        attachments: [
+            {
+                label: 'Github',
+                link: 'https://github.com/bradofrado/SowardsApp'
+            }
+        ],
+        link: 'https://heyplinq.com',
+        image: '/plinq(1).png'
+    },
+    {
+        title: 'Sowards Vacations',
+        description: 'Website for the Sowards family to plan and document their vacations with a budget.',
+        tags: ['React', 'Typescript', 'Next.js', 'Tailwind CSS', 'Prisma', 'Postgres'],
+        attachments: [
+            {
+                label: 'Github',
+                link: 'https://github.com/bradofrado/SowardsApp'
+            }
+        ],
+        link: 'https://vacations.sowardssuites.com',
+        image: '/sowardsvacations.png'
+    },
+    {
       title: 'Running Sons',
       description: 'Online shopping/events website for the band Running Sons. I am the keyboardist in this band.',
       tags: ['Vue', 'CSS', 'Node.js', 'Express', 'MongoDB'],
