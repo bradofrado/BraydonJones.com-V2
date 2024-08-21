@@ -41,19 +41,10 @@ const MyApp: AppType<{ session: Session | null }> = ({
         </div>
       </DarkModeProvider>
       <HarmonySetup repositoryId="5f296668-b002-45d7-89e4-fb303e7e22d6" fonts={fonts}/>
-      {/* <Script id="harmony-id">
-          {`harmony={load:function(e){const r=document.createElement("script");r.src="https://unpkg.com/harmony-ai-editor";r.addEventListener('load',function(){window.HarmonyProvider({repositoryId:e});});document.body.appendChild(r);}}
-    harmony.load('38e7e551-af74-4326-b5d3-466b7d7d1670');`}
-      </Script> */}
-        {/* <Script id="harmony-tag" src="bundle.js"></Script>
-        <Script>
-          {`(function() {
-              const script = document.getElementById('harmony-tag');
-              script.addEventListener('load', function() {
-                window.HarmonyProvider({repositoryId:'a119bc6b-c088-4e66-80b6-ee71e5c590dc'});
-              });
-            })()`}
-        </Script> */}
+      <Script id='heap-script' type="text/javascript">
+      {`window.heapReadyCb=window.heapReadyCb||[],window.heap=window.heap||[],heap.load=function(e,t){window.heap.envId=e,window.heap.clientConfig=t=t||{},window.heap.clientConfig.shouldFetchServerConfig=!1;var a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src="https://cdn.us.heap-api.com/config/"+e+"/heap_config.js";var r=document.getElementsByTagName("script")[0];r.parentNode.insertBefore(a,r);var n=["init","startTracking","stopTracking","track","resetIdentity","identify","getSessionId","getUserId","getIdentity","addUserProperties","addEventProperties","removeEventProperty","clearEventProperties","addAccountProperties","addAdapter","addTransformer","addTransformerFn","onReady","addPageviewProperties","removePageviewProperty","clearPageviewProperties","trackPageview"],i=function(e){return function(){var t=Array.prototype.slice.call(arguments,0);window.heapReadyCb.push({name:e,fn:function(){heap[e]&&heap[e].apply(heap,t)}})}};for(var p=0;p<n.length;p++)heap[n[p]]=i(n[p])};
+  heap.load("3924392742");`}
+      </Script>
     </SessionProvider>
     </>
   );

@@ -20,7 +20,7 @@
     "@trpc/server": "^10.26.0",
     "dayjs": "^1.11.9",
     "harmony-ai-editor": "^0.12.6",
-    "harmony-ai-plugin": "^0.2.1",
+    "harmony-ai-plugin": "^0.2.5",
     "next": "^14.2.1",
     "next-auth": "^4.24.7",
     "react": "^18",
